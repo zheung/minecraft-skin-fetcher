@@ -2,5 +2,6 @@ node_modules
 
 /config/config.json
 /config/config.log.json
+/config/.config.db.json
 
 /log/*

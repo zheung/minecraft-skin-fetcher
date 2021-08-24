@@ -1,0 +1,7 @@
+{
+	"dest": "{PostgreSQL's IP}",
+	"port": 5432,
+	"name": "{PostgreSQL's database}",
+	"user": "{PostgreSQL's username}",
+	"pswd": "{PostgreSQL's password}"
+}

@@ -9,7 +9,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/index.js",
-			"runtimeExecutable": "E:/Runtime/Node/node.exe",
+			"runtimeExecutable": "node.exe",
 			"console": "integratedTerminal"
 		}
 	]
