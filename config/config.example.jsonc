@@ -1,4 +1,6 @@
 {
+	// 1, 入库模式; 2, 轮询模式
+	"mode": 1,
 	"fetchName": "{Nick Name}|{Minecraft Username}",
 	"interval": 3600000
 }

@@ -1,12 +1,13 @@
 import { C, G } from './lib/global.js';
 import Postgre from './lib/Postgre.js';
 
-import { ensurePlayer, queryPlayers } from './lib/function/Player.js';
+import { ensurePlayer, queryPlayerProfiles } from './lib/function/Player.js';
 import { ensurePlayerProfile } from './lib/function/ProfilePlayer.js';
 import { ensureProfileSnap, fetchProfile, fetchProfileID } from './lib/function/Profile.js';
 import { ensureSkin } from './lib/function/Skin.js';
 import LogError from './lib/LogError.js';
 
+const { mode, fetchName, interval } = C;
 
 const ensureSet = async (DB, idProfile) => {
 	const [profile, urlSkin] = await fetchProfile(idProfile);
@@ -15,17 +16,33 @@ const ensureSet = async (DB, idProfile) => {
 	await ensureSkin(DB, profile.SkinHash, urlSkin);
 };
 
-(async function() {
+const initLooper = (DB) => async () => {
 	try {
-		const PG = await new Postgre(C.$db);
-		const DB = await PG.pick();
+		const playerProfiles = await queryPlayerProfiles(DB);
+
+		for(const playerProfile of playerProfiles) {
+			G.info('轮询', `~[玩家]~{${playerProfile.nick}}`, `~[档案ID]~{${playerProfile.ProfileID}}`);
+
+			await ensureSet(DB, playerProfile.ProfileID);
+
+			G.info();
+		}
+	}
+	catch(error) {
+		if(error instanceof LogError) { G[error.name](...error.args); }
+		else { G.fatal('主线', '轮询错误', error); }
+	}
+};
+
+(async function() {
+
+	const PG = await new Postgre(C.$db);
+	const DB = await PG.pick();
 
 
-		const { fetchName, interval } = C;
-
-
-		if(fetchName) {
-			G.info('主线', `~[玩家更新模式]`);
+	if(mode == 1) {
+		try {
+			G.info('主线', `~[入库模式]`);
 
 
 			const [nick, userName] = fetchName.split('|');
@@ -39,30 +56,20 @@ const ensureSet = async (DB, idProfile) => {
 
 			await DB.close();
 		}
-		else if(interval) {
-			G.info('主线', `~[轮询更新模式]`);
-
-			const loop = async () => {
-				const players = await queryPlayers(DB);
-
-				for(const player of players) {
-
-				}
-			};
-
-			loop();
-			setInterval(loop, interval);
-		}
-
-
-		G.info('主线', '结束');
-	}
-	catch(error) {
-		if(error instanceof LogError) {
-			G[error.name](...error.args);
-		}
-		else {
-			G.fatal('主线', '致命错误', error);
+		catch(error) {
+			if(error instanceof LogError) { G[error.name](...error.args); }
+			else { G.fatal('主线', '入库错误', error); }
 		}
 	}
+	else if(interval) {
+		G.info('主线', `~[轮询模式]`);
+
+		const looper = initLooper(DB);
+
+		looper();
+		setInterval(looper, interval);
+	}
+
+
+	G.info('主线', '结束');
 })();
