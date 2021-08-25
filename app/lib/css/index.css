@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	height: 100%;
+
+	margin: 0px;
+	padding: 0px;
+
+	overflow: hidden;
+	overflow-y: auto;
+
+	background: #eeeeee;
+	color: snow;
+}
+
+input {
+	color: snow;
+}
+
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.transAll, .transAll *, .trans {
+	transition-property: all;
+	transition-duration: 0.4s;
+
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+}
+.transAll.d02, .transAll.d02 *, .trans.d02 {
+	transition-duration: 0.2s;
+}
+.transAll.d07, .transAll.d07 *, .trans.d07 {
+	transition-duration: 0.7s;
+}
+.transAll.d2, .transAll.d2 *, .trans.d2 {
+	transition-duration: 2s;
+}
+
+.nosel {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+.sel {
+	user-select: text !important;
+	-moz-user-select: text !important;
+	-webkit-user-select: text !important;
+	cursor: text !important;
+}
+
+.inline {
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* 文本显示省略号 */
+.elli {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+:root{
+	--scrollbarWidth: 0.75rem;
+}
+
+/* 现代滚动条 */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(119, 119, 119, 0.4);
+}
+::-webkit-scrollbar {
+	width: var(--scrollbarWidth);
+	height: var(--scrollbarWidth);
+}
+::-webkit-scrollbar-track:hover {
+	background-color: rgba(119, 119, 119, 0.2);
+}
+::-webkit-scrollbar-thumb {
+	border-radius: var(--scrollbarWidth);
+	background: rgba(119, 119, 119, 0.4);
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(119, 119, 119, 0.7);
+}
+::-webkit-scrollbar-thumb:active {
+	background: rgba(119, 119, 119, 1.0);
+}
+::-webkit-scrollbar-corner {
+	background-color: transparent;
+}

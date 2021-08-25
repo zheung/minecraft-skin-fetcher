@@ -1,17 +1,44 @@
 {
-	"name": "minecraft-skin-fetcher",
+	"name": "minecraft-skin-manager",
 	"version": "0.1.2",
+	"description": "",
 	"author": "Nuogz",
 	"license": "LGPL-3.0-or-later",
 	"main": "index.js",
 	"type": "module",
+	"engines": {
+		"node": ">=14"
+	},
+	"scripts": {
+		"开发前端": "vite",
+		"生产前端": "vite build"
+	},
 	"dependencies": {
+		"@nuogz/desire": "^4.11.3",
 		"@nuogz/hades": "^3.3.1",
 		"@nuogz/poseidon": "^4.1.0",
 		"axios": "^0.21.1",
+		"fs-readdir-recursive": "^1.1.0",
 		"pg": "^8.7.1"
 	},
 	"devDependencies": {
-		"eslint": "^7.32.0"
+		"@babel/core": "^7.15.0",
+		"@babel/eslint-parser": "^7.15.0",
+		"@babel/plugin-proposal-class-properties": "^7.14.5",
+		"@babel/plugin-proposal-optional-chaining": "^7.14.5",
+		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
+		"@vitejs/plugin-legacy": "^1.5.1",
+		"@vitejs/plugin-vue": "^1.6.0",
+		"@vue/compiler-sfc": "^3.2.6",
+		"autoprefixer": "^10.3.2",
+		"eslint": "^7.32.0",
+		"eslint-plugin-html": "^6.1.2",
+		"eslint-plugin-vue": "^7.16.0",
+		"postcss": "^8.3.6",
+		"tailwindcss": "^2.2.7",
+		"three": "0.104.0",
+		"tippy.js": "^6.3.1",
+		"vite": "^2.5.1",
+		"vue": "^3.2.6"
 	}
 }
