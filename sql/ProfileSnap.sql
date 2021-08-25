@@ -2,7 +2,7 @@ CREATE TABLE "ProfileSnap" (
 	"timeInsert" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	"ProfileID" char(32) NOT NULL,
 	"ProfileName" varchar(255) NOT NULL,
-	"SkinHash" varchar(64) NOT NULL,
+	"SkinHash" char(64) NOT NULL,
 	"SkinModel" int8 NOT NULL
 );
 

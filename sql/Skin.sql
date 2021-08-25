@@ -1,5 +1,5 @@
 CREATE TABLE "Skin" (
-	"hash" varchar(64) NOT NULL,
+	"hash" char(64) NOT NULL,
 	"data" bytea NOT NULL,
 	PRIMARY KEY ("hash")
 );
