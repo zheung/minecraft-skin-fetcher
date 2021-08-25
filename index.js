@@ -35,34 +35,33 @@ const initLooper = (DB) => async () => {
 };
 
 (async function() {
-
 	const PG = await new Postgre(C.$db);
 	const DB = await PG.pick();
 
 
 	if(mode == 1) {
 		try {
-			G.info('主线', `~[入库模式]`);
+			G.infoD('主线', `~[入库模式]`);
 
 
 			const [nick, userName] = fetchName.split('|');
 
-			const player = await ensurePlayer(DB, nick);
 			const idProfile = await fetchProfileID(userName);
+			const player = await ensurePlayer(DB, nick);
 
 			await ensurePlayerProfile(DB, player, idProfile);
 			await ensureSet(DB, idProfile);
-
-
-			await DB.close();
 		}
 		catch(error) {
 			if(error instanceof LogError) { G[error.name](...error.args); }
 			else { G.fatal('主线', '入库错误', error); }
 		}
+		finally {
+			await DB.close();
+		}
 	}
 	else if(interval) {
-		G.info('主线', `~[轮询模式]`);
+		G.infoD('主线', `~[轮询模式]`);
 
 		const looper = initLooper(DB);
 
