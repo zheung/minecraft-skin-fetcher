@@ -1,77 +1,68 @@
 import { C, G } from './lib/global.js';
 import Postgre from './lib/Postgre.js';
 
-import { createProfile, fetchProfile, fetchProfileID, queryProfile, updatePlayerSubsProfileID } from './lib/function/profile.js';
-import { createSkin, fetchSkin, querySkin } from './lib/function/skin.js';
-import { createPlayer, queryPlayer, queryPlayers } from './lib/function/player.js';
+import { ensurePlayer, queryPlayers } from './lib/function/Player.js';
+import { ensurePlayerProfile } from './lib/function/ProfilePlayer.js';
+import { ensureProfileSnap, fetchProfile, fetchProfileID } from './lib/function/Profile.js';
+import { ensureSkin } from './lib/function/Skin.js';
+import LogError from './lib/LogError.js';
 
-export const getProfileID = async (DB, nick, userName) => {
-	let idProfileNow;
 
-	const player = await queryPlayer(DB, nick);
-
-	idProfileNow = await fetchProfileID(userName);
-	if(player) {
-		await updatePlayerSubsProfileID(DB, player, idProfileNow);
-	}
-	else {
-		await createPlayer(DB, nick, idProfileNow);
-	}
-
-	return idProfileNow;
-};
-
-const createSet = async (DB, idProfile) => {
+const ensureSet = async (DB, idProfile) => {
 	const [profile, urlSkin] = await fetchProfile(idProfile);
 
-	const snapProfile = await queryProfile(DB, profile);
-	if(!snapProfile) {
-		await createProfile(DB, profile);
-	}
-
-	const skin = await querySkin(DB, profile.SkinHash);
-	if(!skin) {
-		await createSkin(DB, profile, await fetchSkin(profile, urlSkin));
-	}
+	await ensureProfileSnap(DB, profile);
+	await ensureSkin(DB, profile.SkinHash, urlSkin);
 };
 
 (async function() {
-	const PG = await new Postgre(C.$db);
-	const DB = await PG.pick();
+	try {
+		const PG = await new Postgre(C.$db);
+		const DB = await PG.pick();
 
 
-	const { fetchName, interval } = C;
+		const { fetchName, interval } = C;
 
 
-	if(fetchName) {
-		G.info('主线', `~[玩家更新模式]`);
+		if(fetchName) {
+			G.info('主线', `~[玩家更新模式]`);
 
 
-		const [nick, userName] = fetchName.split('|');
+			const [nick, userName] = fetchName.split('|');
+
+			const player = await ensurePlayer(DB, nick);
+			const idProfile = await fetchProfileID(userName);
+
+			await ensurePlayerProfile(DB, player, idProfile);
+			await ensureSet(DB, idProfile);
 
 
-		const [idProfile] = await getProfileID(DB, nick, userName);
+			await DB.close();
+		}
+		else if(interval) {
+			G.info('主线', `~[轮询更新模式]`);
 
-		await createSet(DB, idProfile);
+			const loop = async () => {
+				const players = await queryPlayers(DB);
+
+				for(const player of players) {
+
+				}
+			};
+
+			loop();
+			setInterval(loop, interval);
+		}
 
 
-		await DB.close();
+		G.info('主线', '结束');
 	}
-	else if(interval) {
-		G.info('主线', `~[轮询更新模式]`);
-
-		const loop = async () => {
-			const players = await queryPlayers(DB);
-
-			for(const player of players) {
-
-			}
-		};
-
-		loop();
-		setInterval(loop, interval);
+	catch(error) {
+		if(error instanceof LogError) {
+			G[error.name](...error.args);
+		}
+		else {
+			G.fatal('主线', '致命错误', error);
+		}
 	}
-
-
-	G.info('主线', '结束');
 })();

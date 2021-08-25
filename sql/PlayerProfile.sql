@@ -1,7 +1,7 @@
 CREATE TABLE "PlayerProfile" (
 	"PlayerID" int8 NOT NULL,
 	"ProfileID" char(32) NOT NULL,
-	"isMain" bool NOT NULL
+	"isMain" bool NOT NULL DEFAULT false
 );
 
 CREATE UNIQUE INDEX "undexPlayerProfile" ON "PlayerProfile" (
