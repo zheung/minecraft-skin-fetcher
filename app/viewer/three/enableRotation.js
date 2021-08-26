@@ -1,4 +1,4 @@
-import radians from './radians.js';
+import { radians } from './tool.js';
 
 export default function enableRotation(renderState) {
 	function startRotation(t, id) {

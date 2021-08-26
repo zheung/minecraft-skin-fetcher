@@ -19,6 +19,7 @@
 		"@nuogz/poseidon": "^4.1.0",
 		"axios": "^0.21.1",
 		"fs-readdir-recursive": "^1.1.0",
+		"moment": "^2.29.1",
 		"pg": "^8.7.1"
 	},
 	"devDependencies": {

@@ -1,8 +1,7 @@
 import * as THREE from 'three/build/three.module.js';
 import animateSkin from './animateSkin.js';
-import C from './const.js';
+import C, { radians } from './tool.js';
 import enableRotation from './enableRotation.js';
-import radians from './radians.js';
 import render from './render.js';
 
 export default function renderSkinHelper(option, model) {

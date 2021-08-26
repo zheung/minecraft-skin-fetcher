@@ -1,4 +1,4 @@
-import C from './const.js';
+import C from './tool.js';
 import render from './render.js';
 
 export default function renderAnimation() {

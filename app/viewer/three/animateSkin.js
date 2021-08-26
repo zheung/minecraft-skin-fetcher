@@ -1,4 +1,4 @@
-import C from './const.js';
+import C from './tool.js';
 import renderAnimation from './renderAnimation.js';
 
 export default function animateSkin(e, toggle) {

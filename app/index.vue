@@ -26,7 +26,7 @@
 	}
 
 	module {
-		@apply relative w-full;
+		@apply block relative w-full;
 		margin-top: var(--heightTopbar);
 	}
 	module._heightFull {
