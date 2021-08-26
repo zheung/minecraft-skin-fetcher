@@ -9,9 +9,17 @@ import pluginLegacy from '@vitejs/plugin-legacy';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const tagsCustomElement = ['module'];
+
 export default defineConfig({
 	plugins: [
-		pluginVue(),
+		pluginVue({
+			template: {
+				compilerOptions: {
+					isCustomElement: tag => tagsCustomElement.includes(tag)
+				}
+			}
+		}),
 		pluginLegacy({ targets: ['defaults', 'not IE 11'] })
 	],
 	root: resolve(__dirname, 'app'),

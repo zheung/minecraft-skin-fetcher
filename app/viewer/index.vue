@@ -3,8 +3,10 @@
 		<canvas id="Canvas" ref="canvas3d" class="inline" width="180" height="320" />
 		<div class="inline List">
 			<div v-for="skin of list" :key="`list-${skin.nick}-${skin.timeInsert}`" class="item" @click="atSelectSkin(skin)">
-				- <div class="inline w-32">{{skin.nick}}</div> <div class="inline w-32" :title="skin.timeInsert">{{skin.fromNow}}</div>
-				<img :src="urlsObject[skin.SkinHash]" alt="原文件" />
+				- <div class="inline w-32">{{skin.nick}}</div>
+				<div class="inline w-32 select-none" :title="skin.timeInsert">{{skin.fromNow}}</div>
+
+				<img v-if="urlsObject[skin.SkinHash]" class="inline select-none" :src="urlsObject[skin.SkinHash]" alt="原文件" />
 			</div>
 		</div>
 	</module>
@@ -37,7 +39,7 @@
 		if(!urlsObject.value[hash]) {
 			const data = await conn('skin/data', { hash: skin.SkinHash });
 
-			urlsObject.value[hash] = URL.createObjectURL(new Blob([new Uint8Array(data)]));
+			urlsObject.value[hash] = URL.createObjectURL(new Blob([new Uint8Array(data)], { type: 'image/png' }));
 		}
 
 		option.slim = skin.SkinModel == '1';
@@ -94,5 +96,7 @@
 
 	.List > .item {
 		@apply cursor-pointer hover:bg-green-700;
+		height: 64px;
+		line-height: 64px;
 	}
 </style>

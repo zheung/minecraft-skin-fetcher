@@ -4,7 +4,6 @@ import { EPSILON, radians } from './tool.js';
 import skinLayout from './layout.js';
 
 
-
 function capeScale(height) {
 	if(height % 22 === 0) {
 		return height / 22;
@@ -154,104 +153,104 @@ export default function buildMinecraftModel(option, skinImage) {
 	}
 	playerGroup.add(headGroup);
 
-	// // 躯干
-	// let torsoGroup = new THREE.Object3D();
-	// torsoGroup.position.x = 0;
-	// torsoGroup.position.y = 2;
-	// torsoGroup.position.z = 0;
-	// box = new THREE.BoxGeometry(8 + EPSILON, 12 + EPSILON, 4 + EPSILON, 8, 12, 4);
-	// let torsoMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['torso'][0]);
-	// torsoGroup.add(torsoMesh);
-	// if(version >= 1 && hasAlpha) {
-	// 	box = new THREE.BoxGeometry(8.5 + EPSILON, 12.5 + EPSILON, 4.5 + EPSILON, 8, 12, 4);
-	// 	let jacketMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['torso'][1]);
-	// 	jacketMesh && torsoGroup.add(jacketMesh);
-	// }
-	// playerGroup.add(torsoGroup);
+	// 躯干
+	let torsoGroup = new THREE.Object3D();
+	torsoGroup.position.x = 0;
+	torsoGroup.position.y = 2;
+	torsoGroup.position.z = 0;
+	box = new THREE.BoxGeometry(8 + EPSILON, 12 + EPSILON, 4 + EPSILON, 8, 12, 4);
+	let torsoMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['torso'][0]);
+	torsoGroup.add(torsoMesh);
+	if(version >= 1 && hasAlpha) {
+		box = new THREE.BoxGeometry(8.5 + EPSILON, 12.5 + EPSILON, 4.5 + EPSILON, 8, 12, 4);
+		let jacketMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['torso'][1]);
+		jacketMesh && torsoGroup.add(jacketMesh);
+	}
+	playerGroup.add(torsoGroup);
 
-	// // 右臂
-	// let rightArmGroup = new THREE.Object3D();
-	// rightArmGroup.position.x = option.slim ? -5.5 : -6;
-	// rightArmGroup.position.y = 6;
-	// rightArmGroup.position.z = 0;
-	// let rightArmMesh;
-	// if(option.slim) {
-	// 	box = new THREE.BoxGeometry(3, 12, 4, 3, 12, 4).translate(0, -4, 0);
-	// 	rightArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armRS'][0]);
-	// } else {
-	// 	box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -4, 0);
-	// 	rightArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armR'][0]);
-	// }
-	// rightArmGroup.add(rightArmMesh);
-	// if(version >= 1 && hasAlpha) {
-	// 	let rightSleeveMesh;
-	// 	if(option.slim) {
-	// 		box = new THREE.BoxGeometry(3.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 3, 12, 4).translate(0, -4, 0);
-	// 		rightSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armRS'][1]);
-	// 	} else {
-	// 		box = new THREE.BoxGeometry(4.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 4, 12, 4).translate(0, -4, 0);
-	// 		rightSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armR'][1]);
-	// 	}
-	// 	rightSleeveMesh && rightArmGroup.add(rightSleeveMesh);
-	// }
-	// playerGroup.add(rightArmGroup);
+	// 右臂
+	let rightArmGroup = new THREE.Object3D();
+	rightArmGroup.position.x = option.slim ? -5.5 : -6;
+	rightArmGroup.position.y = 6;
+	rightArmGroup.position.z = 0;
+	let rightArmMesh;
+	if(option.slim) {
+		box = new THREE.BoxGeometry(3, 12, 4, 3, 12, 4).translate(0, -4, 0);
+		rightArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armRS'][0]);
+	} else {
+		box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -4, 0);
+		rightArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armR'][0]);
+	}
+	rightArmGroup.add(rightArmMesh);
+	if(version >= 1 && hasAlpha) {
+		let rightSleeveMesh;
+		if(option.slim) {
+			box = new THREE.BoxGeometry(3.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 3, 12, 4).translate(0, -4, 0);
+			rightSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armRS'][1]);
+		} else {
+			box = new THREE.BoxGeometry(4.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 4, 12, 4).translate(0, -4, 0);
+			rightSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armR'][1]);
+		}
+		rightSleeveMesh && rightArmGroup.add(rightSleeveMesh);
+	}
+	playerGroup.add(rightArmGroup);
 
-	// // 左臂
-	// let leftArmGroup = new THREE.Object3D();
-	// leftArmGroup.position.x = option.slim ? 5.5 : 6;
-	// leftArmGroup.position.y = 6;
-	// leftArmGroup.position.z = 0;
-	// let leftArmMesh;
-	// if(option.slim) {
-	// 	box = new THREE.BoxGeometry(3, 12, 4, 3, 12, 4).translate(0, -4, 0);
-	// 	leftArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armLS'][0]);
-	// } else {
-	// 	box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -4, 0);
-	// 	leftArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armL'][0]);
-	// }
-	// leftArmGroup.add(leftArmMesh);
-	// if(version >= 1 && hasAlpha) {
-	// 	let leftSleeveMesh;
-	// 	if(option.slim) {
-	// 		box = new THREE.BoxGeometry(3.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 3, 12, 4).translate(0, -4, 0);
-	// 		leftSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armLS'][1]);
-	// 	} else {
-	// 		box = new THREE.BoxGeometry(4.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 4, 12, 4).translate(0, -4, 0);
-	// 		leftSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armL'][1]);
-	// 	}
-	// 	leftSleeveMesh && leftArmGroup.add(leftSleeveMesh);
-	// }
-	// playerGroup.add(leftArmGroup);
+	// 左臂
+	let leftArmGroup = new THREE.Object3D();
+	leftArmGroup.position.x = option.slim ? 5.5 : 6;
+	leftArmGroup.position.y = 6;
+	leftArmGroup.position.z = 0;
+	let leftArmMesh;
+	if(option.slim) {
+		box = new THREE.BoxGeometry(3, 12, 4, 3, 12, 4).translate(0, -4, 0);
+		leftArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armLS'][0]);
+	} else {
+		box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -4, 0);
+		leftArmMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['armL'][0]);
+	}
+	leftArmGroup.add(leftArmMesh);
+	if(version >= 1 && hasAlpha) {
+		let leftSleeveMesh;
+		if(option.slim) {
+			box = new THREE.BoxGeometry(3.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 3, 12, 4).translate(0, -4, 0);
+			leftSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armLS'][1]);
+		} else {
+			box = new THREE.BoxGeometry(4.5 + EPSILON * 4, 12.5 + EPSILON * 4, 4.5 + EPSILON * 4, 4, 12, 4).translate(0, -4, 0);
+			leftSleeveMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['armL'][1]);
+		}
+		leftSleeveMesh && leftArmGroup.add(leftSleeveMesh);
+	}
+	playerGroup.add(leftArmGroup);
 
-	// // 右腿
-	// let rightLegGroup = new THREE.Object3D();
-	// rightLegGroup.position.x = -2;
-	// rightLegGroup.position.y = -4;
-	// rightLegGroup.position.z = 0;
-	// box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -6, 0);
-	// let rightLegMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['legR'][0]);
-	// rightLegGroup.add(rightLegMesh);
-	// if(version >= 1 && hasAlpha) {
-	// 	box = new THREE.BoxGeometry(4.5 + EPSILON * 2, 12.5 + EPSILON * 2, 4.5 + EPSILON * 2, 4, 12, 4).translate(0, -6, 0);
-	// 	let rightPantMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['legR'][1]);
-	// 	rightPantMesh && rightLegGroup.add(rightPantMesh);
-	// }
-	// playerGroup.add(rightLegGroup);
+	// 右腿
+	let rightLegGroup = new THREE.Object3D();
+	rightLegGroup.position.x = -2;
+	rightLegGroup.position.y = -4;
+	rightLegGroup.position.z = 0;
+	box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -6, 0);
+	let rightLegMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['legR'][0]);
+	rightLegGroup.add(rightLegMesh);
+	if(version >= 1 && hasAlpha) {
+		box = new THREE.BoxGeometry(4.5 + EPSILON * 2, 12.5 + EPSILON * 2, 4.5 + EPSILON * 2, 4, 12, 4).translate(0, -6, 0);
+		let rightPantMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['legR'][1]);
+		rightPantMesh && rightLegGroup.add(rightPantMesh);
+	}
+	playerGroup.add(rightLegGroup);
 
-	// // 左腿
-	// let leftLegGroup = new THREE.Object3D();
-	// leftLegGroup.position.x = 2;
-	// leftLegGroup.position.y = -4;
-	// leftLegGroup.position.z = 0;
-	// box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -6, 0);
-	// let leftLegMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['legL'][0]);
-	// leftLegGroup.add(leftLegMesh);
-	// if(version >= 1 && hasAlpha) {
-	// 	box = new THREE.BoxGeometry(4.5 + EPSILON * 3, 12.5 + EPSILON * 3, 4.5 + EPSILON * 3, 4, 12, 4).translate(0, -6, 0);
-	// 	let leftPantMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['legL'][1]);
-	// 	leftPantMesh && leftLegGroup.add(leftPantMesh);
-	// }
-	// playerGroup.add(leftLegGroup);
+	// 左腿
+	let leftLegGroup = new THREE.Object3D();
+	leftLegGroup.position.x = 2;
+	leftLegGroup.position.y = -4;
+	leftLegGroup.position.z = 0;
+	box = new THREE.BoxGeometry(4, 12, 4, 4, 12, 4).translate(0, -6, 0);
+	let leftLegMesh = colorFaces(box, opaqueSkinCanvas, layoutSkin['legL'][0]);
+	leftLegGroup.add(leftLegMesh);
+	if(version >= 1 && hasAlpha) {
+		box = new THREE.BoxGeometry(4.5 + EPSILON * 3, 12.5 + EPSILON * 3, 4.5 + EPSILON * 3, 4, 12, 4).translate(0, -6, 0);
+		let leftPantMesh = colorFaces(box, transparentSkinCanvas, layoutSkin['legL'][1]);
+		leftPantMesh && leftLegGroup.add(leftPantMesh);
+	}
+	playerGroup.add(leftLegGroup);
 
 
 	// // 披风部分
