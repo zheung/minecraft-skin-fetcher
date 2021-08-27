@@ -1,7 +1,10 @@
 node_modules
 
+/dist
+
 /config/config.json
 /config/config.log.json
 /config/.config.db.json
+/config/.config.server.json
 
-/log/*
+/log
