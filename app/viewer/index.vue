@@ -1,6 +1,6 @@
 <template>
-	<module class="_heightFull">
-		<canvas id="Canvas" ref="canvasSkin" class="inline" width="180" height="320" />
+	<module ref="moduleApp" class="_heightFull">
+		<canvas id="Canvas" ref="canvasSkin" class="inline" width="360" height="640" />
 		<div class="inline List">
 			<div v-for="skinLite of skinsLite" :key="`list-${skinLite.nick}-${skinLite.timeInsert}`" class="item" @click="atSelectSkin(skinLite)">
 				<span class="select-none">- </span>
@@ -22,6 +22,7 @@
 
 
 	const canvasSkin = ref(null);
+	const moduleApp = ref(null);
 
 	const urlsObject = ref({});
 	const skinsLite = ref([]);
@@ -47,6 +48,9 @@
 
 		skinsLite.value = result;
 	};
+	const onResizeWindow = () => {
+		skinManager.resize(360, window.getComputedStyle(moduleApp.value).height.replace('px', '') - 64);
+	};
 
 
 	onMounted(async () => {
@@ -55,6 +59,9 @@
 		await atQuery();
 
 		await atSelectSkin(skinsLite.value[0]);
+
+		window.addEventListener('resize', onResizeWindow);
+		onResizeWindow();
 	});
 </script>
 
@@ -69,8 +76,8 @@
 
 	.List {
 		@apply relative p-2 overflow-x-hidden overflow-y-auto;
-		width: calc(100% - 180px);
-		height: 320px;
+		width: calc(30rem);
+		height: 100%;
 	}
 
 	.List > .item {

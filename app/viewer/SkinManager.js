@@ -1,5 +1,4 @@
-import { Float32BufferAttribute } from 'three';
-import { AmbientLight, BoxGeometry, BufferGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module.js';
+import { AmbientLight, BoxGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module';
 import layoutsSkin from './SkinLayouts.js';
 
 
@@ -70,7 +69,6 @@ const dye = (geometry, canvas, rectangles) => {
 
 	const indexsMaterial_alpha = {};
 
-	const colors = []
 
 	let f = 0;
 	Object.keys(rectangles).forEach(function(k) {
@@ -90,106 +88,40 @@ const dye = (geometry, canvas, rectangles) => {
 				const b = pixels[posPoint + 2];
 				const a = pixels[posPoint + 3];
 
-
 				// 透明像素不处理
 				if(a === 0) { continue; }
 
-				colors.push(r / 255, g / 255, b / 255);
 
-				// // 一个矩形包括两个三角形
-				// const face1 = geometry.faces[f];
-				// const face2 = geometry.faces[f + 1];
+				// 一个矩形包括两个三角形
+				const face1 = geometry.faces[f];
+				const face2 = geometry.faces[f + 1];
 
-				// // 三角形着色
-				// face1.color.r = r / 255;
-				// face1.color.g = g / 255;
-				// face1.color.b = b / 255;
-				// face2.color = face1.color;
+				// 三角形着色
+				face1.color.r = r / 255;
+				face1.color.g = g / 255;
+				face1.color.b = b / 255;
+				face2.color = face1.color;
 
-				// // 三角形设置对应的透明度
-				// const indexMaterial = indexsMaterial_alpha[a] ||
-				// 	(indexsMaterial_alpha[a] = materials.push(createMaterial(a)) - 1);
-				// face1.materialIndex = indexMaterial;
-				// face2.materialIndex = indexMaterial;
+				// 三角形设置对应的透明度
+				const indexMaterial = indexsMaterial_alpha[a] ||
+					(indexsMaterial_alpha[a] = materials.push(createMaterial(a)) - 1);
+				face1.materialIndex = indexMaterial;
+				face2.materialIndex = indexMaterial;
 
 
-				// faces.push(face1);
-				// faces.push(face2);
+				faces.push(face1);
+				faces.push(face2);
 			}
 		}
 	});
 
-	// if(faces.length) {
-	// 	geometry.faces = faces;
-	// }
-	geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
-	debugger
-	geometry.computeBoundingSphere();
+
+	if(faces.length) {
+		geometry.faces = faces;
+	}
 
 	return new Mesh(geometry, materials);
 };
-// const dye = (geometry, canvas, rectangles) => {
-// 	if(!rectangles) return null;
-
-// 	const pixels = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
-
-// 	const faces = [];
-// 	const materials = [];
-
-// 	const indexsMaterial_alpha = {};
-
-
-// 	let f = 0;
-// 	Object.keys(rectangles).forEach(function(k) {
-// 		const rect = rectangles[k];
-
-// 		const width = Math.abs(rect.w);
-// 		const height = Math.abs(rect.h);
-
-// 		const dj = Math.sign(rect.w);
-// 		const di = Math.sign(rect.h);
-// 		for(let y = 0, i = rect.y; y < height; y++, i += di) {
-// 			for(let x = 0, j = rect.x; x < width; x++, j += dj, f += 2) {
-// 				const posPoint = 4 * (i * canvas.width + j);
-
-// 				const r = pixels[posPoint + 0];
-// 				const g = pixels[posPoint + 1];
-// 				const b = pixels[posPoint + 2];
-// 				const a = pixels[posPoint + 3];
-
-// 				// 透明像素不处理
-// 				if(a === 0) { continue; }
-
-
-// 				// 一个矩形包括两个三角形
-// 				const face1 = geometry.faces[f];
-// 				const face2 = geometry.faces[f + 1];
-
-// 				// 三角形着色
-// 				face1.color.r = r / 255;
-// 				face1.color.g = g / 255;
-// 				face1.color.b = b / 255;
-// 				face2.color = face1.color;
-
-// 				// 三角形设置对应的透明度
-// 				const indexMaterial = indexsMaterial_alpha[a] ||
-// 					(indexsMaterial_alpha[a] = materials.push(createMaterial(a)) - 1);
-// 				face1.materialIndex = indexMaterial;
-// 				face2.materialIndex = indexMaterial;
-
-
-// 				faces.push(face1);
-// 				faces.push(face2);
-// 			}
-// 		}
-// 	});
-
-// 	if(faces.length) {
-// 		geometry.faces = faces;
-// 	}
-
-// 	return new Mesh(new BufferGeometry().fromGeometry(geometry), materials);
-// };
 
 export default class SkinManager {
 	constructor(canvas) {
@@ -232,13 +164,13 @@ export default class SkinManager {
 
 		this.scene.add(new AmbientLight(0xFFFFFF, 0.7));
 
-		const dirLight = new DirectionalLight(0xFFFFFF, 0.3);
+		const dirLight = new DirectionalLight(0xFFFFFF, 0.4);
 		dirLight.position.set(0.67763, 0.28571, 0.67763);
 
 		this.scene.add(dirLight);
 	}
 	initCamera() {
-		this.camera = new PerspectiveCamera(38, this.canvas.width / this.canvas.height, 60 - 20, 60 + 20);
+		this.camera = new PerspectiveCamera(45, this.canvas.width / this.canvas.height, 1, 2000);
 		this.camera.position.set(0, 60, 0);
 		this.camera.lookAt(new Vector3(0, 0, 0));
 	}
@@ -308,6 +240,14 @@ export default class SkinManager {
 		this.dragState[id].y = screenY;
 
 		return result;
+	}
+
+
+	resize(width, height) {
+		this.canvas.width = width;
+		this.canvas.height = height;
+		// this.renderer.setSize(width, height,true);
+		this.camera.updateProjectionMatrix();
 	}
 
 
@@ -406,12 +346,12 @@ export default class SkinManager {
 		groupPlayer.add(groupLegR);
 		groupPlayer.add(groupLegL);
 
-		groupHead.position.set(0, 12, 0);
-		groupTorso.position.set(0, 2, 0);
-		groupArmR.position.set(isSlim ? -5.5 : -6, 6, 0);
-		groupArmL.position.set(isSlim ? 5.5 : 6, 6, 0);
-		groupLegR.position.set(-2, -4, 0);
-		groupLegL.position.set(2, -4, 0);
+		groupHead.position.set(0, 10, 0);
+		groupTorso.position.set(0, 0, 0);
+		groupArmR.position.set(isSlim ? -5.5 : -6, 4, 0);
+		groupArmL.position.set(isSlim ? 5.5 : 6, 4, 0);
+		groupLegR.position.set(-2, -6, 0);
+		groupLegL.position.set(2, -6, 0);
 
 
 		// 第一层
