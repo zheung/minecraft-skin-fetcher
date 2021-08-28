@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import { $alert } from '../lib/plugin/alert';
+import { $alert } from '../lib/plugin/alert/index.js';
 
 export const prefixDefault = './api';
 

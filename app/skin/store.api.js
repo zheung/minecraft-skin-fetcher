@@ -29,30 +29,30 @@ const handle = async function({ nick, name }) {
 		};
 	}
 	catch(error) {
-		G.fatal('主线', '入库错误', error);
+		if(error instanceof LogError) { G[error.name](...error.args); }
+		else { G.fatal('主线', '入库错误', error); }
 
 		return {
-			success: false,
-			message: error.message
+			success: false
 		};
 	}
 };
 
 const looper = async () => {
-	try {
-		const playerProfiles = await queryPlayerProfiles();
+	const playerProfiles = await queryPlayerProfiles();
 
-		for(const playerProfile of playerProfiles) {
+	for(const playerProfile of playerProfiles) {
+		try {
 			G.info('轮询', `~[玩家]~{${playerProfile.nick}}`, `~[档案ID]~{${playerProfile.ProfileID}}`);
 
 			await ensureSet(playerProfile.ProfileID);
 
 			G.info();
 		}
-	}
-	catch(error) {
-		if(error instanceof LogError) { G[error.name](...error.args); }
-		else { G.fatal('主线', '轮询错误', error); }
+		catch(error) {
+			if(error instanceof LogError) { G[error.name](...error.args); }
+			else { G.fatal('主线', '轮询错误', error); }
+		}
 	}
 };
 
