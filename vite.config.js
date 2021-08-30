@@ -24,19 +24,15 @@ export default defineConfig({
 	],
 	root: resolve(__dirname, 'app'),
 	base: './',
-
 	build: {
 		outDir: resolve(__dirname, 'dist'),
 		emptyOutDir: true,
+		chunkSizeWarningLimit: 1024
 	},
 	server: {
 		port: 14790,
 		proxy: {
 			'^/api/': {
-				target: 'http://127.0.0.1:14789',
-				changeOrigin: true,
-			},
-			'^/skin/': {
 				target: 'http://127.0.0.1:14789',
 				changeOrigin: true,
 			},

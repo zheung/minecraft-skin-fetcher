@@ -8,7 +8,6 @@
 				<div class="inline elli w-32" :title="skinLite.ProfileName">{{skinLite.ProfileName}}</div>
 				<div class="inline elli w-32 select-none" :title="skinLite.timeInsert">{{skinLite.fromNow}}</div>
 
-				<!-- <img v-if="urlsObject[skinLite.SkinHash]" class="inline select-none" :src="urlsObject[skinLite.SkinHash]" alt="原文件" /> -->
 				<img class="inline select-none" :src="`./api/skin/image?hash=${skinLite.SkinHash}`" alt="原文件" />
 			</div>
 		</div>
@@ -19,7 +18,6 @@
 	import { onMounted, ref } from 'vue';
 	import { conn } from '../lib/aegis.js';
 	import Moment from '../lib/Moment.js';
-	import { $alert } from '../lib/plugin/alert/index.js';
 	import SkinManager from './SkinManager.js';
 
 
@@ -47,7 +45,6 @@
 
 
 	onMounted(async () => {
-		$alert('测试');
 		skinManager = new SkinManager(canvasSkin.value);
 
 		await atQuery();

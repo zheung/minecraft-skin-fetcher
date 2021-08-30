@@ -1,4 +1,5 @@
 {
+	"files.trimTrailingWhitespace": true,
 	"javascript.preferences.importModuleSpecifierEnding": "js",
 	"vetur.format.scriptInitialIndent": true,
 	"vetur.format.styleInitialIndent": true,

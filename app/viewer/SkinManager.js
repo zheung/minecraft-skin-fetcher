@@ -1,4 +1,4 @@
-import { AmbientLight, BoxGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module';
+import { AmbientLight, AxesHelper, BoxGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module';
 import layoutsSkin from './SkinLayouts.js';
 
 
@@ -149,6 +149,8 @@ export default class SkinManager {
 
 		this.initRotation();
 		this.initDrop();
+
+		this.render();
 	}
 
 
@@ -166,8 +168,9 @@ export default class SkinManager {
 
 		const dirLight = new DirectionalLight(0xFFFFFF, 0.4);
 		dirLight.position.set(0.67763, 0.28571, 0.67763);
-
 		this.scene.add(dirLight);
+
+		// this.scene.add(new AxesHelper(70000, 70000, 140000));
 	}
 	initCamera() {
 		this.camera = new PerspectiveCamera(45, this.canvas.width / this.canvas.height, 1, 2000);
@@ -280,15 +283,17 @@ export default class SkinManager {
 
 
 	render() {
-		const angle = Math.sin(radians(this.time));
-		this.model.children[2].rotation.x = -radians(18) * angle;
-		this.model.children[3].rotation.x = radians(18) * angle;
-		this.model.children[4].rotation.x = radians(20) * angle;
-		this.model.children[5].rotation.x = -radians(20) * angle;
+		if(this?.model?.children?.length) {
+			const angle = Math.sin(radians(this.time));
+			this.model.children[2].rotation.x = -radians(18) * angle;
+			this.model.children[3].rotation.x = radians(18) * angle;
+			this.model.children[4].rotation.x = radians(20) * angle;
+			this.model.children[5].rotation.x = -radians(20) * angle;
 
-		if(this.model.children[6]) {
-			let capeAngle = Math.sin(radians(this.time / 4));
-			this.model.children[6].rotation.x = radians(18) - radians(6) * capeAngle;
+			if(this.model.children[6]) {
+				let capeAngle = Math.sin(radians(this.time / 4));
+				this.model.children[6].rotation.x = radians(18) - radians(6) * capeAngle;
+			}
 		}
 
 		this.renderer.render(this.scene, this.camera);

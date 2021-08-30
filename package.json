@@ -10,8 +10,8 @@
 		"node": ">=14"
 	},
 	"scripts": {
-		"开发前端": "vite",
-		"生产前端": "vite build"
+		"开发": "vite",
+		"打包": "vite build"
 	},
 	"dependencies": {
 		"@nuogz/desire": "^4.11.3",
