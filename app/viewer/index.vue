@@ -11,15 +11,29 @@
 				<img class="inline select-none" :src="`./api/skin/image?hash=${skinLite.SkinHash}`" alt="原文件" />
 			</div>
 		</div>
+		<div class="inline List">
+			<Texter v-model="forms.store.nick" class="inline line-8 w-64 ml-2" label="玩家名" />
+			<Texter v-model="forms.store.name" class="inline line-8 w-64 ml-2" label="用户名" />
+			<Button class="inline line-8 w-16 ml-2" text="入库" @click="atStore" />
+		</div>
 	</module>
 </template>
 
 <script setup>
 	import { onMounted, ref } from 'vue';
-	import { conn } from '../lib/aegis.js';
+
+	import { conn, post } from '../lib/Aegis.js';
 	import Moment from '../lib/Moment.js';
+
+	import Texter from '../lib/comp/Texter.vue';
+	import Button from '../lib/comp/Button.vue';
+
 	import SkinManager from './SkinManager.js';
 
+
+	const forms = ref({
+		store: { nick: '', name: '', }
+	});
 
 
 	const canvasSkin = ref(null);
@@ -30,26 +44,31 @@
 	let skinManager;
 
 
-	const atSelectSkin = async ({ SkinHash, SkinModel }) => skinManager.applyURLImage(`./api/skin/image?hash=${SkinHash}`, SkinModel == 1);
+	const atSelectSkin = ({ SkinHash, SkinModel }) => skinManager.applyURLImage(`./api/skin/image?hash=${SkinHash}`, SkinModel == 1);
 	const atQuery = async () => {
 		const result = await conn('skin/list');
 
 		result.forEach(skin => skin.fromNow = Moment(skin.timeInsert).fromNow());
 
 		skinsLite.value = result;
+
+		if(result[0]) { atSelectSkin(result[0]); }
 	};
 	const onResizeWindow = () => skinManager.resize(
 		360,
 		window.getComputedStyle(moduleApp.value).height.replace('px', '') - 64,
 	);
+	const atStore = async () => {
+		await post('skin/store', forms.value.store);
+
+		atQuery();
+	};
 
 
 	onMounted(async () => {
 		skinManager = new SkinManager(canvasSkin.value);
 
 		await atQuery();
-
-		await atSelectSkin(skinsLite.value[0]);
 
 		window.addEventListener('resize', onResizeWindow);
 		onResizeWindow();
@@ -70,5 +89,9 @@
 		@apply cursor-pointer hover:bg-green-700;
 		height: 64px;
 		line-height: 64px;
+	}
+
+	.line-8 {
+		@apply h-8 leading-8;
 	}
 </style>

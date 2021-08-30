@@ -1,5 +1,5 @@
 <template>
-	<comp-texter>
+	<comp-combo>
 		<!-- 禁用 -->
 		<sub-disabling v-if="disabling_" class="inline" :class="{ '_checked': !disable_ }" @click="disable_ = ! disable_" />
 
@@ -30,7 +30,7 @@
 				{{option.data?.text ?? ''}}
 			</div>
 		</sub-drop>
-	</comp-texter>
+	</comp-combo>
 </template>
 
 <script setup>

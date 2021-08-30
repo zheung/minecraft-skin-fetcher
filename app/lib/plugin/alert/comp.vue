@@ -118,122 +118,120 @@
 </script>
 
 <style scoped>
-.MaskAlert {
-	position: fixed;
+	.MaskAlert {
+		position: fixed;
 
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 
-	background: rgba(192, 192, 192, 0.4);
+		background: rgba(192, 192, 192, 0.4);
 
-	z-index: 3;
-}
+		z-index: 3;
+	}
 
-.compAlert {
-	position: fixed;
+	.compAlert {
+		position: fixed;
 
-	padding: 4px;
+		padding: 4px;
 
-	border-radius: 4px;
+		border-radius: 4px;
 
-	min-width: 100px;
-	min-height: 100px;
+		min-width: 100px;
+		min-height: 100px;
 
-	box-shadow: 0px 3px 7px 1px rgba(64, 64, 64, 0.7);
+		box-shadow: 0px 3px 7px 1px rgba(64, 64, 64, 0.7);
 
-	background-image: linear-gradient(-173deg, #0185e6 45%, #1faaf1 85%);
+		background-image: linear-gradient(-173deg, rgb(55, 65, 81) 45%, rgb(75, 85, 99) 85%);
 
-	overflow: hidden;
+		overflow: hidden;
 
-	outline: 0;
+		outline: 0;
 
-	color: #495051;
+		color: #495051;
 
-	z-index: 5;
-}
-.head {
-	height: 25px;
+		z-index: 5;
+	}
+	.head {
+		height: 25px;
 
-	padding: 0px 5px 0px 5px;
+		padding: 0px 5px 0px 5px;
 
-	background: transparent;
+		background: transparent;
 
-	color: snow;
-}
-.head > * {
-	display: inline-block;
+		color: snow;
+	}
+	.head > * {
+		display: inline-block;
 
-	vertical-align: top;
-}
-.head > .title {
-	height: 22px;
+		vertical-align: top;
+	}
+	.head > .title {
+		height: 22px;
 
-	font-size: 12px;
-	font-weight: bold;
-	line-height: 22px;
-}
-.head > .cancelButton {
-	height: 22px;
+		font-size: 12px;
+		font-weight: bold;
+		line-height: 22px;
+	}
+	.head > .cancelButton {
+		height: 22px;
 
-	float: right;
+		float: right;
 
-	cursor: pointer;
-}
+		cursor: pointer;
+	}
 
-.box {
-	font-size: 12px;
+	.box {
+		font-size: 12px;
 
-	min-width: 100px;
+		min-width: 100px;
 
-	padding: 0px 10px 0px 10px;
+		padding: 0px 10px 0px 10px;
 
-	color: snow;
-}
+		color: snow;
+	}
 
-.line {
-	display: inline-block;
-	vertical-align: top;
+	.line {
+		display: inline-block;
+		vertical-align: top;
 
-	width: 100%;
+		width: 100%;
 
-	margin-top: 10px;
-	margin-bottom: 10px;
+		margin-top: 10px;
+		margin-bottom: 10px;
 
-	font-size: 14px;
-}
+		font-size: 14px;
+	}
 
-.button {
-	display: inline-block;
-	border: 1px solid transparent;
-	border-radius: 4px;
+	.button {
+		display: inline-block;
+		border: 1px solid transparent;
+		border-radius: 0.125rem;
 
-	background: #1faaf1;
+		background: #1faaf1;
 
-	color: snow;
-	width: 60px;
-	height: 24px;
+		color: snow;
+		width: 60px;
+		height: 24px;
 
-	overflow: hidden;
-	text-align: center;
-	line-height: 24px;
-	cursor: pointer;
+		overflow: hidden;
+		text-align: center;
+		line-height: 24px;
+		cursor: pointer;
 
-	font-size: 12px;
-}
-.button.white {
-	background: snow;
+		font-size: 12px;
+	}
+	.button.white {
+		@apply bg-gray-800 text-gray-200;
+	}
+	.button.right {
+		float: right;
 
-	color: #1faaf1;
-}
-.button.right {
-	float: right;
-
-	margin-left: 5px;
-}
-.button:hover {
-	box-shadow: 1px 1px 4px -1px #3d94d4;
-	border: 1px solid #3d94d4;
-}
+		margin-left: 5px;
+	}
+	.button:hover {
+		box-shadow: 1px 1px 4px -1px rgb(4, 120, 87);
+		border: 1px solid rgb(4, 120, 87);
+	}
 </style>

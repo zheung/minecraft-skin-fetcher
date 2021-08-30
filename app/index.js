@@ -18,6 +18,7 @@ import { createApp } from 'vue';
 import B from './lib/bus.js';
 
 import App from './index.vue';
+import pluginAlert from './lib/plugin/alert/index.js';
 
 window.B = B;
 
@@ -28,6 +29,8 @@ window.addEventListener('load', async () => {
 		data() { return { B }; }
 	});
 	app.config.globalProperties.$app = app;
+
+	pluginAlert.install(app);
 
 	app.mount('#app');
 });

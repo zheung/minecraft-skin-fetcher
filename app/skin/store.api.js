@@ -13,7 +13,7 @@ const ensureSet = async (idProfile) => {
 	await ensureSkin(profile.SkinHash, urlSkin);
 };
 
-const method = 'get';
+const method = 'post';
 
 const handle = async function({ nick, name }) {
 	try {
