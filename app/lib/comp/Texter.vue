@@ -1,13 +1,13 @@
 <template>
 	<comp-texter>
 		<!-- 禁用 -->
-		<sub-disabling v-if="disabling_" class="inline" :class="{ '_checked': !disable_ }" @click="disable_ = ! disable_" />
+		<sub-disabling v-if="disabling_" class="inblock" :class="{ '_checked': !disable_ }" @click="disable_ = ! disable_" />
 
 		<!-- 标签 -->
-		<sub-label v-if="label_" class="inline elli" :style="styleLabel" @click="disabling_ && (disable_ = ! disable_)">{{ label_ }}</sub-label>
+		<sub-label v-if="label_" class="inblock elli" :style="styleLabel" @click="disabling_ && (disable_ = ! disable_)">{{ label_ }}</sub-label>
 
 		<!-- 输入框 -->
-		<sub-value class="inline">
+		<sub-value class="inblock">
 			<input
 				v-model="value_"
 				:style="{ textAlign: align }"

@@ -1,13 +1,13 @@
 <template>
 	<comp-combo>
 		<!-- 禁用 -->
-		<sub-disabling v-if="disabling_" class="inline" :class="{ '_checked': !disable_ }" @click="disable_ = ! disable_" />
+		<sub-disabling v-if="disabling_" class="inblock" :class="{ '_checked': !disable_ }" @click="disable_ = ! disable_" />
 
 		<!-- 标签 -->
-		<sub-label v-if="label_" class="inline elli" :style="styleLabel" @click="disabling_ && (disable_ = ! disable_)">{{ label_ }}</sub-label>
+		<sub-label v-if="label_" class="inblock elli" :style="styleLabel" @click="disabling_ && (disable_ = ! disable_)">{{ label_ }}</sub-label>
 
 		<!-- 输入框 -->
-		<sub-value ref="domValue" class="inline" @click="!disable_ && !readonly_ && atClickDrop()">
+		<sub-value ref="domValue" class="inblock" @click="!disable_ && !readonly_ && atClickDrop()">
 			<input
 				ref="domValue"
 				:value="textNow"

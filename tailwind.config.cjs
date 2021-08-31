@@ -5,6 +5,7 @@ module.exports = {
 		extend: {
 			lineHeight: {
 				14: '3.5rem',
+				16: '4rem',
 			}
 		},
 	},
@@ -15,6 +16,7 @@ module.exports = {
 			fontBold: ['hover'],
 			backgroundColor: ['checked'],
 			borderColor: ['checked'],
+			lineHeight: ['responsive'],
 		},
 	},
 	plugins: [],

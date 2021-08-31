@@ -10,8 +10,7 @@
 	注4：请合理配置VSCode以启用足够的智能提示功能
 */
 
-import './lib/css/reset.css';
-import './lib/css/index.css';
+import './lib/css/index.pcss';
 
 import { createApp } from 'vue';
 
