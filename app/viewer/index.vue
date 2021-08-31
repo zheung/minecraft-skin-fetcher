@@ -1,6 +1,11 @@
 <template>
 	<module ref="moduleApp" class="_heightFull">
-		<canvas id="Canvas" ref="canvasSkin" class="inline" width="360" height="640" />
+		<div class="">
+			<Texter v-model="forms.store.nick" class="inline line-8 w-64 ml-2" label="玩家名" />
+			<Texter v-model="forms.store.name" class="inline line-8 w-64 ml-2" label="用户名" />
+			<Button class="inline line-8 w-16 ml-2" text="入库" @click="atStore" />
+		</div>
+		<canvas id="Canvas" ref="canvasSkin" class="inline bg-gray-700" width="180" height="640" />
 		<div class="inline List">
 			<div v-for="skinLite of skinsLite" :key="`list-${skinLite.nick}-${skinLite.timeInsert}`" class="item" @click="atSelectSkin(skinLite)">
 				<div class="inline w-6 select-none">●</div>
@@ -10,11 +15,6 @@
 
 				<img class="inline select-none" :src="`./api/skin/image?hash=${skinLite.SkinHash}`" alt="原文件" />
 			</div>
-		</div>
-		<div class="inline List">
-			<Texter v-model="forms.store.nick" class="inline line-8 w-64 ml-2" label="玩家名" />
-			<Texter v-model="forms.store.name" class="inline line-8 w-64 ml-2" label="用户名" />
-			<Button class="inline line-8 w-16 ml-2" text="入库" @click="atStore" />
 		</div>
 	</module>
 </template>
@@ -44,7 +44,7 @@
 	let skinManager;
 
 
-	const atSelectSkin = ({ SkinHash, SkinModel }) => skinManager.applyURLImage(`./api/skin/image?hash=${SkinHash}`, SkinModel == 1);
+	const atSelectSkin = ({ SkinHash, SkinModel }) => skinManager.applyURL(`./api/skin/image?hash=${SkinHash}`, SkinModel == 1, 3);
 	const atQuery = async () => {
 		const result = await conn('skin/list');
 
@@ -54,16 +54,19 @@
 
 		if(result[0]) { atSelectSkin(result[0]); }
 	};
-	const onResizeWindow = () => skinManager.resize(
-		360,
-		window.getComputedStyle(moduleApp.value).height.replace('px', '') - 64,
-	);
+
+
+	const onResizeWindow = () => {
+		skinManager.resize(
+			180,
+			~~window.getComputedStyle(moduleApp.value).height.replace('px', '') - 64
+		);
+	};
 	const atStore = async () => {
 		await post('skin/store', forms.value.store);
 
 		atQuery();
 	};
-
 
 	onMounted(async () => {
 		skinManager = new SkinManager(canvasSkin.value);

@@ -37,7 +37,7 @@
 		"eslint-plugin-html": "^6.1.2",
 		"eslint-plugin-vue": "^7.17.0",
 		"postcss": "^8.3.6",
-		"tailwindcss": "^2.2.8",
+		"tailwindcss": "^2.2.9",
 		"three": "0.104.0",
 		"tippy.js": "^6.3.1",
 		"vite": "^2.5.1",

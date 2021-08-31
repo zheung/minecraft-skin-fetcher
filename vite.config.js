@@ -9,14 +9,12 @@ import pluginLegacy from '@vitejs/plugin-legacy';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const tagsCustomElement = ['module'];
-
 export default defineConfig({
 	plugins: [
 		pluginVue({
 			template: {
 				compilerOptions: {
-					isCustomElement: tag => tagsCustomElement.includes(tag)
+					isCustomElement: tag => /^[module|sub|comp]/.test(tag)
 				}
 			}
 		}),

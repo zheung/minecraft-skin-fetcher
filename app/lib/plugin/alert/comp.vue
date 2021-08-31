@@ -13,7 +13,7 @@
 			@mousemove="onMouseMove" @mousedown="onMoveStart" @mouseup="onMoveEnd" @mouseout="onMoveEnd"
 		>
 			<div class="title elli">{{title || '提示'}}</div>
-			<Fas v-if="cancelButton" class="cancelButton" :icon="['fas', 'times']" @click="atClose('cancel', true)" />
+			<!-- <Fas v-if="cancelButton" class="cancelButton" :icon="['fas', 'times']" @click="atClose('cancel', true)" /> -->
 		</div>
 		<div class="box">
 			<div class="line">

@@ -1,4 +1,5 @@
-import { AmbientLight, AxesHelper, BoxGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module';
+import { AmbientLight, BoxGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module';
+
 import layoutsSkin from './SkinLayouts.js';
 
 
@@ -132,28 +133,29 @@ export default class SkinManager {
 
 		this.theta = 34;
 		this.phi = -90;
+
 		this.time = 90;
+		this.timestamp = Date.now();
 
 		this.isAnimate = true;
-
 
 		this.model = null;
 
 		this.dragState = {};
 
 		this.inited = false;
+	}
 
+	init() {
 		this.initRenderer();
-		this.initSence();
+		this.initScene();
 		this.initCamera();
 
 		this.initRotation();
 		this.initDrop();
 
-		this.render();
+		this.inited = true;
 	}
-
-
 	initRenderer() {
 		this.renderer = new WebGLRenderer({
 			canvas: this.canvas,
@@ -161,7 +163,7 @@ export default class SkinManager {
 			antialias: true
 		});
 	}
-	initSence() {
+	initScene() {
 		this.scene = new Scene();
 
 		this.scene.add(new AmbientLight(0xFFFFFF, 0.7));
@@ -170,7 +172,7 @@ export default class SkinManager {
 		dirLight.position.set(0.67763, 0.28571, 0.67763);
 		this.scene.add(dirLight);
 
-		// this.scene.add(new AxesHelper(70000, 70000, 140000));
+		// this.scene.add(new AxesHelper(200, 200, 200));
 	}
 	initCamera() {
 		this.camera = new PerspectiveCamera(45, this.canvas.width / this.canvas.height, 1, 2000);
@@ -184,7 +186,7 @@ export default class SkinManager {
 			e.stopPropagation();
 			e.preventDefault();
 
-			this.applyURLImage(URL.createObjectURL(e.dataTransfer.files[0]));
+			this.apply3DURL(URL.createObjectURL(e.dataTransfer.files[0]));
 		}, false);
 	}
 
@@ -249,39 +251,79 @@ export default class SkinManager {
 	resize(width, height) {
 		this.canvas.width = width;
 		this.canvas.height = height;
-		// this.renderer.setSize(width, height,true);
-		this.camera.updateProjectionMatrix();
+
+		if(this.showType == 3) {
+			this.renderer.setSize(width, height, false);
+			this.camera.aspect = width / height;
+			this.camera.updateProjectionMatrix();
+			this.render();
+		}
+		else if(this.showType == 2) {
+			this.show2D();
+		}
 	}
 
 
-	applyURLImage(srcImage, isSlim = false) {
-		const imageSkin = new Image();
+	show3D(model) {
+		if(!this.inited) { this.init(); }
 
-		imageSkin.crossOrigin = '';
-		imageSkin.src = srcImage;
-
-		imageSkin.addEventListener('load', () => {
-			const model = this.buildModel(imageSkin, isSlim);
-
-			if(model) { this.applyModel(model); }
-		});
-	}
-	applyModel(model) {
 		this.scene.remove(this.model);
 		this.scene.add(this.model = model);
 
 		this.model.rotation.x = radians(this.phi);
 		this.model.rotation.y = radians(this.theta);
 
-		this.render();
+		if(this.isAnimate) { this.timestamp = Date.now(); }
+		window.requestAnimationFrame(this.render.bind(this));
+	}
+	show2D() {
+		this.imageOpaque = makeCanvasOpaque(createCanvas(this.image));
 
-		if(this.isAnimate) {
-			this.timestamp = Date.now();
-			window.requestAnimationFrame(this.renderAnimation.bind(this));
-		}
+		const ctx = this.canvas.getContext('2d');
+
+		ctx.mozImageSmoothingEnabled = false;
+		ctx.webkitImageSmoothingEnabled = false;
+		ctx.msImageSmoothingEnabled = false;
+		ctx.imageSmoothingEnabled = false;
+
+		const size = Math.min(this.canvas.width, this.canvas.height);
+
+
+		ctx.drawImage(this.imageOpaque, 8, 8, 8, 8, 0, 0, size, size);
+		ctx.drawImage(this.image, 40, 8, 8, 8, 0, 0, size, size);
 	}
 
 
+	applyURL(url, isSlim = false, showType = false) {
+		const image = this.image = new Image();
+
+		image.crossOrigin = '';
+		image.src = url;
+
+		image.addEventListener('load', () => {
+			if(showType == 3) {
+				const model = this.buildModel(image, isSlim);
+				this.show3D(model);
+			}
+			if(showType == 2) { this.show2D(); }
+
+			this.showType = showType;
+		});
+
+		return this;
+	}
+
+	animate(isAnimate, isReset = false) {
+		const { showType } = this;
+		const last = this.isAnimate;
+		const isChanged = last != isAnimate;
+
+		this.isAnimate = isAnimate;
+
+		if(isAnimate && isChanged && showType == 3) { this.render(this.timestamp = Date.now()); }
+
+		if(!isAnimate && isReset && isChanged && showType == 3) { this.time = 0; }
+	}
 	render() {
 		if(this?.model?.children?.length) {
 			const angle = Math.sin(radians(this.time));
@@ -298,24 +340,19 @@ export default class SkinManager {
 
 		this.renderer.render(this.scene, this.camera);
 
-		if(this.canvas !== this.renderer.domElement) {
-			this.canvas.getContext('2d').drawImage(this.renderer.domElement, 0, 0);
-		}
-	}
-
-	renderAnimation() {
 		if(this.isAnimate) {
 			const now = Date.now();
 
 			this.time += (now - this.timestamp) * (360 / 1500);
 			this.timestamp = now;
 
-			this.render();
+			window.requestAnimationFrame(this.render.bind(this));
+		}
 
-			window.requestAnimationFrame(this.renderAnimation.bind(this));
+		if(this.canvas !== this.renderer.domElement) {
+			this.canvas.getContext('2d').drawImage(this.renderer.domElement, 0, 0);
 		}
 	}
-
 
 	buildModel(skinImage, isSlim = false, capeImage) {
 		if(skinImage.width < 64 || skinImage.height < 32) {
