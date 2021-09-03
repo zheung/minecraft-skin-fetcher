@@ -17,6 +17,7 @@ module.exports = {
 			backgroundColor: ['checked'],
 			borderColor: ['checked'],
 			lineHeight: ['responsive'],
+			width: ['responsive'],
 		},
 	},
 	plugins: [],

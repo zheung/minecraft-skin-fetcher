@@ -38,7 +38,7 @@ export const queryPlayerProfiles = async () => {
 	try {
 		G.warnU('主线', `查询所有~[玩家]`, `? `);
 
-		const players = await B.db.query('SELECT P."nick", PP."ProfileID" FROM "PlayerProfile" PP LEFT JOIN "Player" P ON (P."id" = PP."PlayerID")');
+		const players = await B.db.query('SELECT P."nick", PP."ProfileID" FROM "PlayerProfileMap" PP LEFT JOIN "Player" P ON (P."id" = PP."PlayerID")');
 
 		G.infoD('主线', `查询所有~[玩家]`, `✔ `);
 

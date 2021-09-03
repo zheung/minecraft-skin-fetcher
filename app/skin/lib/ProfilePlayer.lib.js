@@ -6,7 +6,7 @@ export const queryPlayerProfile = async (idProfile) => {
 	try {
 		G.warnU('主线', '查询~[玩家档案]', `? ~[档案ID]~{${idProfile}}`);
 
-		const profilePlayer = await B.db.queryOne('SELECT "PlayerID", "isMain" FROM "PlayerProfile" WHERE "ProfileID" = $', idProfile);
+		const profilePlayer = await B.db.queryOne('SELECT "PlayerID", "isMain" FROM "PlayerProfileMap" WHERE "ProfileID" = $', idProfile);
 
 		if(profilePlayer) {
 			G.infoD('主线', `查询~[玩家档案]`, `✔ ~[档案ID]~{${idProfile}}`);
@@ -23,7 +23,7 @@ export const createPlayerProfile = async (player, idProfile) => {
 	try {
 		G.warnU('主线', `更新~[玩家档案]`, `? ~[档案ID]~{${idProfile}}`);
 
-		const profilePlayer = await B.db.queryOne('INSERT INTO "PlayerProfile"$i RETURNING *', { PlayerID: player.id, ProfileID: idProfile });
+		const profilePlayer = await B.db.queryOne('INSERT INTO "PlayerProfileMap"$i RETURNING *', { PlayerID: player.id, ProfileID: idProfile });
 
 		G.infoD('主线', `更新~[玩家档案]`, `✔ ~[档案ID]~{${idProfile}}`);
 
