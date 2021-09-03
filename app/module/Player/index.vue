@@ -1,15 +1,15 @@
 <template>
 	<module ref="moduleApp" class="_heightFull">
-		<div class="w-full">
-			<Texter v-model="forms.store.nick" class="inblock line-8 w-1/3 ml-2" label="玩家名" />
-			<Texter v-model="forms.store.name" class="inblock line-8 w-1/3 ml-2" label="用户名" />
-			<Click class="inblock line-8 w-16 ml-2" text="入库" @click="atStore" />
-			<Click ref="upload" class="inblock line-8 w-16 ml-2" text="上传" @click="atStore" />
+		<div class="flex gap-2 w-full h-8 leading-8 bg-gray-700">
+			<Texter v-model="forms.store.nick" class="w-1/3" label="玩家名" />
+			<Texter v-model="forms.store.name" class="w-1/3" label="用户名" />
+			<Click class="w-16" text="入库" @click="atStore" />
+			<Click ref="upload" class="w-16" text="上传" @click="atStore" />
 		</div>
 
-		<canvas id="Canvas" ref="canvasSkin" class="w-45 lg:w-90 h-full inblock" width="180" height="320" />
+		<canvas ref="canvasSkin" class="Skin3D w-45 lg:w-90 inblock" width="180" height="320" />
 
-		<div class="inblock List">
+		<div class="List inblock">
 			<div v-for="skinLite of skinsLite" :key="`list-${skinLite.nick}-${skinLite.timeInsert}`" class="item" @click="atSelectSkin(skinLite)">
 				<div class="inblock w-6 select-none">●</div>
 				<div class="inblock elli w-32" :title="skinLite.nick">{{skinLite.nick}}</div>
@@ -43,6 +43,7 @@
 
 	const skinsLite = ref([]);
 
+
 	let skinManager;
 
 
@@ -59,8 +60,8 @@
 
 
 	const onResizeWindow = () => {
-		// const style = window.getComputedStyle(moduleApp.value);
 		const style = window.getComputedStyle(canvasSkin.value);
+
 		skinManager.resize(
 			(Number.parseFloat(style.width) - Number.parseFloat(style.paddingLeft) - Number.parseFloat(style.paddingRight)),
 			Number.parseFloat(style.height) - Number.parseFloat(style.paddingTop) - Number.parseFloat(style.paddingBottom)
@@ -84,13 +85,18 @@
 
 <style lang="postcss" scoped>
 	module {
-		@apply relative w-full p-8 bg-gray-800 text-gray-200;
+		@apply relative w-full p-1 bg-gray-800 text-gray-200;
+	}
+
+	.Skin3D {
+		height: calc(100% - theme("spacing.8"));
 	}
 
 	.List {
-		@apply relative h-full p-2 overflow-x-hidden overflow-y-auto;
+		@apply relative p-2 overflow-x-hidden overflow-y-auto;
 
 		width: calc(100% - theme("width.45"));
+		height: calc(100% - theme("spacing.8"));
 	}
 	@media (min-width: 1024px) {
 		.List {
@@ -100,9 +106,5 @@
 
 	.List > .item {
 		@apply cursor-pointer hover:bg-green-700 h-16 leading-16;
-	}
-
-	.line-8 {
-		@apply h-8 leading-8;
 	}
 </style>

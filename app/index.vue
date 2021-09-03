@@ -32,11 +32,11 @@
 		}
 	};
 
+
 	const modules = [
 		{ slot: 'Player', name: '玩家皮肤' },
 		{ slot: 'Tag', name: '皮肤标签' },
 	];
-
 
 	const moduleNow = ref(null);
 	const modulePre = ref('');

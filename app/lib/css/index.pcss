@@ -3,15 +3,14 @@
 @tailwind utilities;
 
 @layer utilities {
-	.inblock {
-		display: inline-block;
-		vertical-align: top;
-	}
-
 	@variants responsive {
 		.inblock {
 			display: inline-block;
 			vertical-align: top;
+		}
+
+		.line-8 {
+			@apply h-8 leading-8;
 		}
 	}
 }
