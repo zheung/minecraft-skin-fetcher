@@ -1,5 +1,5 @@
 import { C, G } from '../../lib/global.js';
-import LogError from '../../lib/LogError.js';
+import LogError from './lib/LogError.lib.js';
 import { ensurePlayer, queryPlayerProfiles } from './lib/Player.lib.js';
 import { ensureProfileSnap, fetchProfile, fetchProfileID } from './lib/Profile.lib.js';
 import { ensurePlayerProfile } from './lib/ProfilePlayer.lib.js';

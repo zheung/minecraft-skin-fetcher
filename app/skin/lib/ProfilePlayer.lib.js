@@ -1,5 +1,5 @@
 import { B, G } from '../../../lib/global.js';
-import LogError from '../../../lib/LogError.js';
+import LogError from '.././lib/LogError.lib.js';
 
 
 export const queryPlayerProfile = async (idProfile) => {

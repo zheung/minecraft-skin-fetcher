@@ -1,15 +1,15 @@
 <template>
-	<div ref="moduleApp" class="_heightFull">
+	<module ref="moduleApp" class="_heightFull">
 		<div class="w-full">
 			<Texter v-model="forms.store.nick" class="inblock line-8 w-1/3 ml-2" label="玩家名" />
 			<Texter v-model="forms.store.name" class="inblock line-8 w-1/3 ml-2" label="用户名" />
-			<sButton class="inblock line-8 w-16 ml-2" text="入库" @click="atStore" />
-			<sButton ref="upload" class="inblock line-8 w-16 ml-2" text="上传" @click="atStore" />
+			<Click class="inblock line-8 w-16 ml-2" text="入库" @click="atStore" />
+			<Click ref="upload" class="inblock line-8 w-16 ml-2" text="上传" @click="atStore" />
 		</div>
 
-		<canvas id="Canvas" ref="canvasSkin" class="inblock bg-black w-45" width="180" height="320" />
+		<canvas id="Canvas" ref="canvasSkin" class="w-45 lg:w-90 h-full inblock" width="180" height="320" />
 
-		<div class="inblock List w-2/3">
+		<div class="inblock List">
 			<div v-for="skinLite of skinsLite" :key="`list-${skinLite.nick}-${skinLite.timeInsert}`" class="item" @click="atSelectSkin(skinLite)">
 				<div class="inblock w-6 select-none">●</div>
 				<div class="inblock elli w-32" :title="skinLite.nick">{{skinLite.nick}}</div>
@@ -18,17 +18,17 @@
 				<img class="hidden lg:inblock select-none" :src="`./api/skin/image?hash=${skinLite.SkinHash}`" alt="原文件" />
 			</div>
 		</div>
-	</div>
+	</module>
 </template>
 
 <script setup>
 	import { onMounted, ref } from 'vue';
 
-	import { conn, post } from '../lib/Aegis.js';
-	import Moment from '../lib/Moment.js';
+	import { conn, post } from '../../lib/Aegis.js';
+	import Moment from '../../lib/Moment.js';
 
-	import Texter from '../lib/comp/Texter.vue';
-	import sButton from '../lib/comp/sButton.vue';
+	import Texter from '../../lib/comp/Texter.vue';
+	import Click from '../../lib/comp/Click.vue';
 
 	import SkinManager from './SkinManager.js';
 
@@ -61,9 +61,8 @@
 	const onResizeWindow = () => {
 		// const style = window.getComputedStyle(moduleApp.value);
 		const style = window.getComputedStyle(canvasSkin.value);
-		console.log(Number.parseFloat(style2.width));
 		skinManager.resize(
-			(Number.parseFloat(style.width) - Number.parseFloat(style.paddingLeft) - Number.parseFloat(style.paddingRight)) * 0.3,
+			(Number.parseFloat(style.width) - Number.parseFloat(style.paddingLeft) - Number.parseFloat(style.paddingRight)),
 			Number.parseFloat(style.height) - Number.parseFloat(style.paddingTop) - Number.parseFloat(style.paddingBottom)
 		);
 	};
@@ -89,9 +88,16 @@
 	}
 
 	.List {
-		@apply relative p-2 overflow-x-hidden overflow-y-auto;
-		height: 100%;
+		@apply relative h-full p-2 overflow-x-hidden overflow-y-auto;
+
+		width: calc(100% - theme("width.45"));
 	}
+	@media (min-width: 1024px) {
+		.List {
+			width: calc(100% - theme("width.90"));
+		}
+	}
+
 	.List > .item {
 		@apply cursor-pointer hover:bg-green-700 h-16 leading-16;
 	}

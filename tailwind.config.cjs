@@ -6,7 +6,11 @@ module.exports = {
 			lineHeight: {
 				14: '3.5rem',
 				16: '4rem',
-			}
+			},
+			width: {
+				45: '11.25rem',
+				90: '22.5rem',
+			},
 		},
 	},
 	variants: {

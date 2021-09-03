@@ -31,13 +31,5 @@ window.addEventListener('load', async () => {
 
 	pluginAlert.install(app);
 
-	app.loadComp = async slot => {
-		if(!app.component(slot)) {
-			const comp = await import(`./comp/${slot.replace(/-/g, '/')}.vue`);
-
-			app.component(slot, comp.default);
-		}
-	};
-
 	app.mount('#app');
 });

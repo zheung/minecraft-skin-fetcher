@@ -14,7 +14,7 @@ export default defineConfig({
 		pluginVue({
 			template: {
 				compilerOptions: {
-					isCustomElement: tag => /^[module|sub|comp]/.test(tag)
+					isCustomElement: tag => /^((module-|sub-|comp-).+?|module)$/.test(tag)
 				}
 			}
 		}),
