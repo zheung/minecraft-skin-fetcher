@@ -56,16 +56,18 @@
 	}
 
 	sub-topbar {
-		@apply fixed top-0 left-0 w-full px-2 bg-gray-900 text-gray-200;
+		@apply fixed top-0 left-0 w-full px-2 bg-gray-900 text-gray-200 z-50;
 		height: var(--heightTopbar);
 		line-height: var(--heightTopbar);
 	}
 	sub-topbar .Tab {
 		@apply px-2 cursor-pointer;
 	}
+	sub-topbar .Tab {
+		@apply hover:text-green-300;
+	}
 	sub-topbar .Tab._now {
-		border-color: snow;
-		@apply border-b-2;
+		@apply font-bold text-green-500;
 	}
 
 	module {

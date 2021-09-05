@@ -1,6 +1,6 @@
 <template>
 	<module ref="moduleApp" class="_heightFull">
-		<div class="flex gap-2 w-full h-8 leading-8 bg-gray-700">
+		<div class="flex gap-2 w-full h-8 px-2 leading-8 bg-gray-700">
 			<Texter v-model="forms.store.nick" class="w-1/3" label="玩家名" />
 			<Texter v-model="forms.store.name" class="w-1/3" label="用户名" />
 			<Click class="w-16" text="入库" @click="atStore" />
@@ -85,7 +85,7 @@
 
 <style lang="postcss" scoped>
 	module {
-		@apply relative w-full p-1 bg-gray-800 text-gray-200;
+		@apply relative w-full bg-gray-800 text-gray-200;
 	}
 
 	.Skin3D {
@@ -105,6 +105,6 @@
 	}
 
 	.List > .item {
-		@apply cursor-pointer hover:bg-green-700 h-16 leading-16;
+		@apply cursor-pointer hover:bg-green-700 h-16 leading-16 px-4;
 	}
 </style>
