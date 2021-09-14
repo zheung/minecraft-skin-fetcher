@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@nuogz/desire": "^4.11.3",
-		"@nuogz/hades": "^3.3.1",
+		"@nuogz/hades": "^3.5.0",
 		"@nuogz/poseidon": "^4.1.0",
 		"axios": "^0.21.4",
 		"fs-readdir-recursive": "^1.1.0",
@@ -40,7 +40,7 @@
 		"tailwindcss": "^2.2.15",
 		"three": "0.104.0",
 		"tippy.js": "^6.3.1",
-		"vite": "^2.5.6",
+		"vite": "^2.5.7",
 		"vue": "^3.2.11"
 	}
 }
