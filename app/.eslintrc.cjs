@@ -1,6 +1,6 @@
 const rc = {
-	files: ['./**/*.js', './**/*.vue'],
-	excludedFiles: ['./**/*.api.js', './**/*.lib.js', './**/*.lib/**/*.js'],
+	files: ['./**/*.{js,vue}'],
+	excludedFiles: ['./**/*.{api,lib}.js', './**/*.lib/**/*.js'],
 	env: {
 		node: false,
 		browser: true,
@@ -23,6 +23,12 @@ const rc = {
 		'vue/no-v-html': [0],
 		'vue/require-v-for-key': [0],
 		'vue/html-self-closing': [1, { html: { void: 'always' }, }],
+	},
+	globals: {
+		defineProps: 'readonly',
+		defineEmits: 'readonly',
+		defineExpose: 'readonly',
+		withDefaults: 'readonly'
 	},
 };
 
