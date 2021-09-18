@@ -6,8 +6,10 @@ const rc = {
 	extends: [
 		'eslint:recommended',
 	],
+	parser: '@babel/eslint-parser',
 	parserOptions: {
-		sourceType: 'module'
+		sourceType: 'module',
+		requireConfigFile: false,
 	},
 	rules: {
 		indent: [2, 'tab', { ignoreComments: true, SwitchCase: 1 }],
@@ -19,6 +21,7 @@ const rc = {
 		noVar: [2],
 		quoteProps: [2, 'as-needed'],
 		requireAtomicUpdates: [0],
+		arrowParens: [2, 'as-needed'],
 	},
 };
 
@@ -26,7 +29,6 @@ for(const key in rc.rules) {
 	const keyCamel = key.split(/(?=[A-Z])/).join('-').toLowerCase();
 	if(keyCamel != key) {
 		rc.rules[keyCamel] = rc.rules[key];
-
 		delete rc.rules[key];
 	}
 }
