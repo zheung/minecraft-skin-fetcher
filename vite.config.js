@@ -4,7 +4,6 @@ import { dirname } from 'path';
 
 import { defineConfig } from 'vite';
 import pluginVue from '@vitejs/plugin-vue';
-import pluginLegacy from '@vitejs/plugin-legacy';
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -18,7 +17,6 @@ export default defineConfig({
 				}
 			}
 		}),
-		pluginLegacy({ targets: ['defaults', 'not IE 11'] })
 	],
 	root: resolve(__dirname, 'app'),
 	base: './',

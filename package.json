@@ -11,10 +11,10 @@
 	},
 	"scripts": {
 		"开发": "vite",
-		"打包": "vite build"
+		"构建": "vite build"
 	},
 	"dependencies": {
-		"@nuogz/desire": "^4.11.4",
+		"@nuogz/desire": "^4.11.5",
 		"@nuogz/hades": "^3.5.0",
 		"@nuogz/poseidon": "^4.1.0",
 		"axios": "^0.21.4",
@@ -25,17 +25,16 @@
 	"devDependencies": {
 		"@babel/core": "^7.15.5",
 		"@babel/eslint-parser": "^7.15.7",
-		"@vitejs/plugin-legacy": "^1.5.3",
-		"@vitejs/plugin-vue": "^1.6.2",
-		"@vue/compiler-sfc": "^3.2.12",
-		"autoprefixer": "^10.3.4",
+		"@vitejs/plugin-vue": "^1.9.2",
+		"@vue/compiler-sfc": "^3.2.19",
+		"autoprefixer": "^10.3.6",
 		"eslint": "^7.32.0",
 		"eslint-plugin-vue": "^7.18.0",
-		"postcss": "^8.3.6",
-		"tailwindcss": "^2.2.15",
+		"postcss": "^8.3.8",
+		"tailwindcss": "^2.2.16",
 		"three": "0.104.0",
 		"tippy.js": "^6.3.1",
-		"vite": "^2.5.8",
-		"vue": "^3.2.12"
+		"vite": "^2.6.1",
+		"vue": "^3.2.19"
 	}
 }
