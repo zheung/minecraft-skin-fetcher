@@ -1,6 +1,6 @@
-const rcAPP = {
+const rcBrowser = {
 	files: ['./app/**/*.{js,vue}'],
-	excludedFiles: ['./app/**/*.{api,lib}.js', './app/**/*.lib/**/*.js'],
+	excludedFiles: ['./app/**/*.{api,lib,map}.js', './app/**/*.lib/**/*.js'],
 	env: { node: false, browser: true },
 	extends: ['plugin:vue/vue3-recommended'],
 	rules: {
@@ -38,13 +38,13 @@ const rcNode = {
 		noConsole: [2],
 		requireAtomicUpdates: [1],
 	},
-	overrides: [rcAPP]
+	overrides: [rcBrowser]
 };
 
 
 const parseKey = (raw, target) => { const key = raw.split(/(?=[A-Z])/).join('-').toLowerCase(); if(key != raw) { target[key] = target[raw]; delete target[raw]; } };
 Object.keys(rcNode.rules).forEach(key => parseKey(key, rcNode.rules));
-Object.keys(rcAPP.rules).forEach(key => parseKey(key, rcAPP.rules));
+Object.keys(rcBrowser.rules).forEach(key => parseKey(key, rcBrowser.rules));
 
 
 module.exports = rcNode;
