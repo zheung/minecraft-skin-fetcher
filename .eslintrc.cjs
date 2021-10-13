@@ -1,36 +1,50 @@
-const rc = {
-	env: {
-		es2021: true,
-		node: true,
-	},
-	extends: [
-		'eslint:recommended',
-	],
-	parser: '@babel/eslint-parser',
-	parserOptions: {
-		sourceType: 'module',
-		requireConfigFile: false,
-	},
+const rcAPP = {
+	files: ['./app/**/*.{js,vue}'],
+	excludedFiles: ['./app/**/*.{api,lib}.js', './app/**/*.lib/**/*.js'],
+	env: { node: false, browser: true },
+	extends: ['plugin:vue/vue3-recommended'],
 	rules: {
-		indent: [2, 'tab', { ignoreComments: true, SwitchCase: 1 }],
-		linebreakStyle: [2, 'unix'],
-		quotes: [2, 'single', { allowTemplateLiterals: true }],
-		semi: [2, 'always'],
-		noUnusedVars: [2, { vars: 'all', args: 'after-used' }],
-		noConsole: [2],
-		noVar: [2],
-		quoteProps: [2, 'as-needed'],
-		requireAtomicUpdates: [0],
-		arrowParens: [2, 'as-needed'],
+		indent: [0],
+
+		'vue/html-indent': [2, 'tab'],
+		'vue/script-indent': [2, 'tab', { baseIndent: 1 }],
+		'vue/max-attributes-per-line': [0],
+		'vue/mustache-interpolation-spacing': [0],
+		'vue/singleline-html-element-content-newline': [0],
+		'vue/no-v-html': [0],
+		'vue/require-v-for-key': [0],
+		'vue/html-self-closing': [1, { html: { void: 'always' }, }],
+	},
+	globals: {
+		defineProps: 'readonly',
+		defineEmits: 'readonly',
+		defineExpose: 'readonly',
+		withDefaults: 'readonly'
 	},
 };
 
-for(const key in rc.rules) {
-	const keyCamel = key.split(/(?=[A-Z])/).join('-').toLowerCase();
-	if(keyCamel != key) {
-		rc.rules[keyCamel] = rc.rules[key];
-		delete rc.rules[key];
-	}
-}
+const rcNode = {
+	root: true,
+	env: { es2021: true, node: true },
+	extends: ['eslint:recommended'],
+	parserOptions: { sourceType: 'module', ecmaVersion: 13 },
+	rules: {
+		indent: [2, 'tab', { ignoreComments: true, SwitchCase: 1 }],
+		linebreakStyle: [2],
+		quotes: [2, 'single', { allowTemplateLiterals: true }],
+		semi: [2],
+		noUnusedVars: [2, { vars: 'all', args: 'none' }],
+		noVar: [2],
+		noConsole: [2],
+		requireAtomicUpdates: [1],
+	},
+	overrides: [rcAPP]
+};
 
-module.exports = rc;
+
+const parseKey = (raw, target) => { const key = raw.split(/(?=[A-Z])/).join('-').toLowerCase(); if(key != raw) { target[key] = target[raw]; delete target[raw]; } };
+Object.keys(rcNode.rules).forEach(key => parseKey(key, rcNode.rules));
+Object.keys(rcAPP.rules).forEach(key => parseKey(key, rcAPP.rules));
+
+
+module.exports = rcNode;

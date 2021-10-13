@@ -1,13 +1,13 @@
 {
 	"name": "minecraft-skin-manager",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "",
 	"author": "Nuogz",
 	"license": "LGPL-3.0-or-later",
 	"main": "index.js",
 	"type": "module",
 	"engines": {
-		"node": ">=14"
+		"node": ">=14.18.0"
 	},
 	"scripts": {
 		"开发": "vite",
@@ -23,18 +23,16 @@
 		"pg": "^8.7.1"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.15.5",
-		"@babel/eslint-parser": "^7.15.7",
-		"@vitejs/plugin-vue": "^1.9.2",
-		"@vue/compiler-sfc": "^3.2.19",
-		"autoprefixer": "^10.3.6",
-		"eslint": "^7.32.0",
-		"eslint-plugin-vue": "^7.18.0",
-		"postcss": "^8.3.8",
+		"@vitejs/plugin-vue": "^1.9.3",
+		"@vue/compiler-sfc": "^3.2.20",
+		"autoprefixer": "^10.3.7",
+		"eslint": "^8.0.0",
+		"eslint-plugin-vue": "^7.19.1",
+		"postcss": "^8.3.9",
 		"tailwindcss": "^2.2.16",
 		"three": "0.104.0",
-		"tippy.js": "^6.3.1",
-		"vite": "^2.6.1",
-		"vue": "^3.2.19"
+		"tippy.js": "^6.3.2",
+		"vite": "^2.6.7",
+		"vue": "^3.2.20"
 	}
 }
