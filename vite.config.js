@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 import pluginVue from '@vitejs/plugin-vue';
 
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const dirPackage = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
 	plugins: [
@@ -18,10 +18,10 @@ export default defineConfig({
 			}
 		}),
 	],
-	root: resolve(__dirname, 'app'),
+	root: resolve(dirPackage, 'app'),
 	base: './',
 	build: {
-		outDir: resolve(__dirname, 'dist'),
+		outDir: resolve(dirPackage, 'dist'),
 		emptyOutDir: true,
 		chunkSizeWarningLimit: 1024
 	},

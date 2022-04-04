@@ -14,25 +14,24 @@
 		"构建": "vite build"
 	},
 	"dependencies": {
-		"@nuogz/desire": "^4.11.5",
+		"@nuogz/desire": "^4.11.16",
 		"@nuogz/hades": "^3.5.0",
 		"@nuogz/poseidon": "^4.1.0",
 		"axios": "^0.21.4",
 		"fs-readdir-recursive": "^1.1.0",
-		"moment": "^2.29.1",
-		"pg": "^8.7.1"
+		"moment": "^2.29.2",
+		"pg": "^8.7.3"
 	},
 	"devDependencies": {
-		"@vitejs/plugin-vue": "^1.9.4",
-		"@vue/compiler-sfc": "^3.2.21",
-		"autoprefixer": "^10.4.0",
-		"eslint": "^8.1.0",
-		"eslint-plugin-vue": "^8.0.3",
-		"postcss": "^8.3.11",
+		"@vitejs/plugin-vue": "^1.10.2",
+		"autoprefixer": "^10.4.4",
+		"eslint": "^8.12.0",
+		"eslint-plugin-vue": "^8.5.0",
+		"postcss": "^8.4.12",
 		"tailwindcss": "^2.2.19",
 		"three": "0.104.0",
-		"tippy.js": "^6.3.4",
-		"vite": "^2.6.13",
-		"vue": "^3.2.21"
+		"tippy.js": "^6.3.7",
+		"vite": "^2.9.1",
+		"vue": "^3.2.31"
 	}
 }
