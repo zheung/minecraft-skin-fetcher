@@ -1,8 +1,6 @@
 {
-	"eslint.packageManager": "pnpm",
 	"files.trimTrailingWhitespace": true,
 	"javascript.preferences.importModuleSpecifierEnding": "js",
-	"npm.packageManager": "pnpm",
 	"vetur.format.defaultFormatter.html": "none",
 	"vetur.format.defaultFormatter.js": "vscode-typescript",
 	"vetur.format.options.tabSize": 4,

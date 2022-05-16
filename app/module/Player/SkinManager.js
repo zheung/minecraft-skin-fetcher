@@ -1,4 +1,4 @@
-import { AmbientLight, BoxGeometry, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three/build/three.module';
+import { AmbientLight, BoxGeometry, BufferAttribute, Color, DirectionalLight, DoubleSide, FaceColors, Mesh, MeshLambertMaterial, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three';
 
 import layoutsSkin from './SkinLayouts.js';
 
@@ -59,19 +59,37 @@ const createMaterial = alpha => {
 	return material;
 };
 
-/** 染色 */
+/**
+ * 染色
+ * @param {import('three').BufferGeometry} geometry
+ * @param {} canvas
+ * @param {*} rectangles
+ * @returns {import('three').BufferGeometry}
+ */
 const dye = (geometry, canvas, rectangles) => {
-	if(!rectangles) return null;
+	if(!rectangles) { return null; }
+
+	geometry = geometry.toNonIndexed();
+
 
 	const pixels = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
 
-	const faces = [];
+	const count = geometry.attributes.position.count;
+	const colors = new BufferAttribute(new Float32Array(count * 3), 3);
+	geometry.setAttribute('color', colors);
+
+	geometry.clearGroups();
+
+
+	const colorSet = new Color(1, 1, 1);
+
 	const materials = [];
+	const mapMaterialIndex_alpha = {};
 
-	const indexsMaterial_alpha = {};
-
-
-	let f = 0;
+	let point = 0;
+	let startGroup = 0;
+	let countGroup = 0;
+	let indexMaterialGroup = 0;
 	Object.keys(rectangles).forEach(function(k) {
 		const rect = rectangles[k];
 
@@ -80,8 +98,9 @@ const dye = (geometry, canvas, rectangles) => {
 
 		const dj = Math.sign(rect.w);
 		const di = Math.sign(rect.h);
+
 		for(let y = 0, i = rect.y; y < height; y++, i += di) {
-			for(let x = 0, j = rect.x; x < width; x++, j += dj, f += 2) {
+			for(let x = 0, j = rect.x; x < width; x++, j += dj, point += 6) {
 				const posPoint = 4 * (i * canvas.width + j);
 
 				const r = pixels[posPoint + 0];
@@ -90,36 +109,40 @@ const dye = (geometry, canvas, rectangles) => {
 				const a = pixels[posPoint + 3];
 
 				// 透明像素不处理
-				if(a === 0) { continue; }
+				// if(a === 0) { continue; }
 
 
-				// 一个矩形包括两个三角形
-				const face1 = geometry.faces[f];
-				const face2 = geometry.faces[f + 1];
+				// 一个矩形包括两个三角形，三角形着色
+				colorSet.setRGB(r / 255, g / 255, b / 255);
 
-				// 三角形着色
-				face1.color.r = r / 255;
-				face1.color.g = g / 255;
-				face1.color.b = b / 255;
-				face2.color = face1.color;
+				colors.setXYZ(point, colorSet.r, colorSet.g, colorSet.b);
+				colors.setXYZ(point + 1, colorSet.r, colorSet.g, colorSet.b);
+				colors.setXYZ(point + 2, colorSet.r, colorSet.g, colorSet.b);
+				colors.setXYZ(point + 3, colorSet.r, colorSet.g, colorSet.b);
+				colors.setXYZ(point + 4, colorSet.r, colorSet.g, colorSet.b);
+				colors.setXYZ(point + 5, colorSet.r, colorSet.g, colorSet.b);
 
 				// 三角形设置对应的透明度
-				const indexMaterial = indexsMaterial_alpha[a] ||
-					(indexsMaterial_alpha[a] = materials.push(createMaterial(a)) - 1);
-				face1.materialIndex = indexMaterial;
-				face2.materialIndex = indexMaterial;
+				const indexMaterial = a in mapMaterialIndex_alpha
+					? mapMaterialIndex_alpha[a]
+					: (mapMaterialIndex_alpha[a] = materials.push(createMaterial(a)) - 1);
 
 
-				faces.push(face1);
-				faces.push(face2);
+				if(indexMaterialGroup != indexMaterial) {
+					geometry.addGroup(startGroup, countGroup, indexMaterialGroup);
+
+					startGroup = point;
+					countGroup = 0;
+					indexMaterialGroup = indexMaterial;
+				}
+
+				countGroup += 6;
 			}
 		}
 	});
 
+	geometry.addGroup(startGroup, countGroup, indexMaterialGroup);
 
-	if(faces.length) {
-		geometry.faces = faces;
-	}
 
 	return new Mesh(geometry, materials);
 };
