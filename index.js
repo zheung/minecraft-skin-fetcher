@@ -1,34 +1,32 @@
+import './index.env.js';
+import { dirPackage, C, G } from '@nuogz/pangu';
+
 import { resolve } from 'path';
 
 import Desire from '@nuogz/desire';
+import readRoute from '@nuogz/desire-route';
 
-import { C, G, B, dirApp } from './lib/global.js';
-import Postgre from './lib/Postgre.js';
-import initRoute from './lib/initRoute.js';
+import './lib/db.js';
 
 
-(async () => {
-	B.db = await new Postgre(C.$db);
 
-	const { folds, faces } = await initRoute(resolve(dirApp, 'app'));
 
-	await new Desire({
-		name: '服务',
-		host: C.server.host,
-		port: C.server.port,
+const { folds, faces } = await readRoute(resolve(dirPackage, 'src'));
 
-		mare: { before: ['parseRaw'] },
+new Desire({
+	name: '服务',
+	host: C.server.host,
+	port: C.server.port,
 
-		facePrefix: '/api',
-		faces,
+	mare: {
+		before: ['parseRaw'],
+		after: ['toSuccess'],
+	},
 
-		folds: folds.concat([
-			{
-				route: '/',
-				path: resolve(dirApp, 'dist')
-			},
-		]),
+	facePrefix: '/api',
 
-		logger: G,
-	}).start();
-})();
+	faces,
+	folds,
+
+	logger: G,
+}).start();

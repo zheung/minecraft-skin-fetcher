@@ -2,15 +2,34 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "pwa-node",
+			"type": "node",
 			"request": "launch",
-			"name": "服务器",
+			"name": "Server",
+			"console": "integratedTerminal",
+			"runtimeExecutable": "node.exe",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/index.js",
+			"cwd": "${workspaceRoot}",
+			"program": "index.js",
+			"args": [
+				"${workspaceRoot}"
+			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch Current File",
+			"console": "integratedTerminal",
 			"runtimeExecutable": "node.exe",
-			"console": "integratedTerminal"
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"cwd": "${fileDirname}",
+			"program": "${fileBasename}",
+			"args": [
+				"${workspaceRoot}"
+			]
 		}
 	]
 }

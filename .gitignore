@@ -1,10 +1,7 @@
-node_modules
+/node_modules
+/test/local
+/test/*.local.js
+/config
+/log
 
 /dist
-
-/config/config.json
-/config/config.log.json
-/config/config.server.json
-/config/.config.db.json
-
-/log
