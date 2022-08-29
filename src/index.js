@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import './lib/Moment.js';
+import './lib/moment.js';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { MouseMenuDirective } from '@howdyjs/mouse-menu';
