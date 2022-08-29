@@ -29,4 +29,10 @@ new Desire({
 	folds,
 
 	logger: G,
+
+	wock: {
+		disable: false,
+		route: 'wock',
+		ping: false,
+	},
 }).start();

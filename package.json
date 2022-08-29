@@ -1,46 +1,59 @@
 {
 	"name": "minecraft-skin-manager",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "",
 	"author": "Nuogz",
 	"license": "LGPL-3.0-or-later",
-	"main": "./index.js",
-	"type": "module",
-	"private": true,
 	"repository": {
 		"type": "git",
 		"url": "github:zheung/minecraft-skin-fetcher"
 	},
+	"private": true,
+	"type": "module",
+	"typesSource": [
+		"browser",
+		"node-mixin"
+	],
 	"engines": {
 		"node": ">=14.18.1"
 	},
+	"main": "./index.js",
 	"scripts": {
-		"develop": "vite",
-		"build": "vite build"
+		"develop": "vite --force",
+		"build": "vite build --force"
 	},
 	"dependencies": {
-		"@nuogz/desire": "^5.0.0",
+		"@nuogz/desire": "^5.0.1",
 		"@nuogz/desire-route": "^2.0.0",
-		"@nuogz/pangu": "^2.1.0",
+		"@nuogz/pangu": "^2.2.0",
+		"@nuogz/postgresql": "^1.0.1",
 		"axios": "^0.27.2",
 		"moment": "^2.29.4",
-		"pg": "^8.7.3"
+		"pg": "^8.8.0"
 	},
 	"devDependencies": {
 		"@fortawesome/fontawesome-svg-core": "^6.1.2",
 		"@fortawesome/free-solid-svg-icons": "^6.1.2",
 		"@fortawesome/vue-fontawesome": "^3.0.1",
 		"@howdyjs/mouse-menu": "^2.0.5",
+		"@nuogz/aegis": "^1.1.0",
+		"@nuogz/css-var": "^2.0.1",
+		"@nuogz/utility": "^1.3.0",
+		"@nuogz/vue-alert": "^1.1.2",
+		"@nuogz/vue-components": "^1.3.2",
+		"@nuogz/vue-sidebar": "^1.1.1",
+		"@nuogz/vue-tip": "^1.0.1",
+		"@nuogz/wock": "^1.0.0",
 		"@vitejs/plugin-vue": "^3.0.3",
 		"autoprefixer": "^10.4.8",
-		"eslint": "^8.22.0",
-		"eslint-plugin-vue": "^9.3.0",
+		"eslint": "^8.23.0",
+		"eslint-plugin-vue": "^9.4.0",
 		"postcss": "^8.4.16",
-		"sass": "^1.54.4",
+		"sass": "^1.54.5",
 		"tailwindcss": "^3.1.8",
-		"three": "0.143",
+		"three": "~0.143.0",
 		"tippy.js": "^6.3.7",
-		"vite": "^3.0.7",
+		"vite": "^3.0.9",
 		"vue": "^3.2.37"
 	}
 }

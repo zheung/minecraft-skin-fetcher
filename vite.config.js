@@ -24,11 +24,15 @@ export default defineConfig({
 	build: {
 		outDir: resolve(dirPackage, 'dist'),
 		emptyOutDir: true,
-		chunkSizeWarningLimit: 1024
+		chunkSizeWarningLimit: 1024,
+		minify: true
 	},
 	publicDir: resolve(dirPackage, 'src', 'public'),
 	clearScreen: false,
 	server: {
+		hmr: {
+			port: 4588,
+		},
 		port: 4788,
 		proxy: {
 			'^/api/': {

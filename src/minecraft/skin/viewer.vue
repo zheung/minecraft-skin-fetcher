@@ -23,24 +23,21 @@
 
 <script setup>
 	import { onMounted, ref } from 'vue';
+	import Moment from 'moment';
 
-	import { $get, $post } from '../../lib/plugin/Aegis.js';
-	import Moment from '../../lib/Moment.js';
-
-	import Texter from '../../lib/comp/Texter.vue';
-	import Click from '../../lib/comp/Click.vue';
+	import { Texter, Click } from '@nuogz/vue-components';
+	import { $get, $post } from '@nuogz/aegis';
 
 	import SkinManager from './SkinManager.js';
 
 
 
 	const forms = ref({
-		store: { nick: '', name: '', }
+		store: { nick: '', name: '', t: 1 }
 	});
 
 
 	const canvasSkin = ref(null);
-	const moduleApp = ref(null);
 
 	const skinsLite = ref([]);
 
@@ -89,7 +86,8 @@ p-topbar
 	@apply block flex gap-2 w-full p-4
 
 [skin3d]
-	@apply mx-2 w-45 lg:w-90 inblock shadow-mdd rounded-md
+	@apply mx-2 lg:w-90 inblock shadow-mdd rounded-md
+	weight: calc(theme("spacing.1") * 45)
 
 p-list
 	@apply relative inblock overflow-x-hidden overflow-y-auto
@@ -98,7 +96,8 @@ p-list
 	height: calc(100vh - theme("spacing.1") * (8 + 8))
 
 	p-item
-		@apply block cursor-pointer hover:bg-sky-400 h-16 leading-16 px-4 rounded-md
+		@apply block cursor-pointer hover:bg-sky-400 h-16 px-4 rounded-md
+		line-height: calc(theme("spacing.1") * 16)
 
 @media (min-width: 1024px)
 	p-list

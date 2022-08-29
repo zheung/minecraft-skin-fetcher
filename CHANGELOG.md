@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.0 - 2022.08.29 09
+* decoupling codes. use package from Nuogz Library
+* improve `package.json` and project configs
+
 
 ## v1.0.0 - 2022.08.16 09
 * restyle frontend
